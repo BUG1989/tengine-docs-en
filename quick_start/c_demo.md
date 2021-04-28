@@ -1,60 +1,44 @@
-# C完整示例
+# C Complete Example
 
-本章节展示的所有C示例位于[examples](https://github.C++om/OAID/Tengine/tree/tengine-lite/examples) 。
+All C examples shown in this section are located at [examples](https://github.C++om/OAID/Tengine/tree/tengine-lite/examples) 。
 
-## 1.环境准备
-要编译和运行C示例程序，你需要准备:
-1.一台可以编译C/C++ 的Linux环境的电脑（x86或Arm架构均可）。
+## 1.Environmental preparation
+To compile and run the c sample program, you need to prepare: 1. a computer that can compile C/C++ Linux environment (x86 or Arm architecture can be used).
 
 
-## 2.下载预编译的预测库
-下载Tengine-Lite预编译库，
-请根据你的架构选择正确的版本
+## 2.Download the precompiled forecast library
+Download the Tengine-Lite precompiled library. 
 
-| Arch  | with_extra | arm_stl    | with_cv | 下载                                      |
-| ----- | ---------- | ---------- | ------- | ----------------------------------------- |
-| ARMv8 | OFF        | c++_static |         | (<font size=4 color=orange>待补充</font>) |
-| ARMv7 | OFF        |            |         | (<font size=4 color=orange>待补充</font>) |
-| x86   | OFF        |            |         | (<font size=4 color=orange>待补充</font>) |
+Please choose the correct version according to your architecture
 
-**以ARMv8架构为例，解压后内容结构如下：**(<font size=4 color=orange>待补充</font>)
+| Arch  | with_extra | arm_stl    | with_cv | Download                                              |
+| ----- | ---------- | ---------- | ------- | ----------------------------------------------------- |
+| ARMv8 | OFF        | c++_static |         | (<font size=4 color=orange>To be supplemented</font>) |
+| ARMv7 | OFF        |            |         | (<font size=4 color=orange>To be supplemented</font>) |
+| x86   | OFF        |            |         | (<font size=4 color=orange>To be supplemented</font>) |
+
+**Taking ARMv8 architecture as an example, the decompressed content structure is as follows：**(<font size=4 color=orange>To be supplemented</font>)
 
 ```shell
-tengine_lite_lib.c.armv8         	 Tengine-Lite 预测库
-├── c                                C预测库
-│   ├── include                      C预测库头文件
-│   └── lib                          C预测库文件
-│       ├── libtengine-lite.a        静态预测库
-│       └── libtengine-lite.so       动态预测库
-└── demo                             示例 Demo
-    └── c                          	 C示例 Demo
+tengine_lite_lib.cxx.armv8           Tengine-Lite Forecast Library
+├── cxx                              C++ Forecast Library
+│   ├── include                      C++ Forecast Library Header File
+│   └── lib                          C++ Forecast Library Library File
+│       ├── libtengine-lite.a        Static Forecast Library
+│       └── libtengine-lite.so       Dynamic Forecast Library
+└── demo                             Demo
+    └── c                          C Demo
 ```
 
-## 3. 准备预测部署模型
+## 3. Prepare A Predictive Deployment Model
 
-(1) 模型下载：下载mobilenet_v1(<font size=4 color=orange>待补充</font>)模型后解压，可得到.tmfile后缀的模型文件。可通过模型可视化工具[Netron](https://lutzroeder.github.io/netron/)打开文件夹下的model文件，查看模型结构。
+(1) Model download: Download mobilenet_v1(<font size=4 color=orange>To be supplemented</font>). The model file with. tmfile suffix can be obtained by decompressing the model. You can open the model file under the folder through the model visualization tool [Netron](https://lutzroeder.github.io/netron/) to view the model structure.
 
-## 4. 编译预测示例程序
+## 4. Compile the Prediction Sample Program
 
-export LD_LIBRARY_PATH=(<font size=4 color=orange>待补充</font>)
+export LD_LIBRARY_PATH=(<font size=4 color=orange>To be supplemented</font>)
 
-gcc -I(<font size=4 color=orange>待补充</font>) -L(<font size=4 color=orange>待补充</font>) -l(<font size=4 color=orange>待补充</font>) tm_classification.c -o  tm_classification
-## 5.执行预测
+gcc -I(<font size=4 color=orange>To be supplemented</font>) -L(<font size=4 color=orange>To be supplemented</font>) -l(<font size=4 color=orange>To be supplemented</font>) tm_classification.c -o  tm_classification
+## 5.Execute Forecast
 
-```bash
-export LD_LIBRARY_PATH=./build-linux-x86/install/lib
-cd ./build-linux-x86/install/examples/
-$ ./tm_classification -m /path/to/mobilenet.tmfile -l /path/to/labels.txt -i /path/to/img.jpg -g 224,224 -s 0.017 -w 104.007,116.669,122.679
-
---------------------------------------
-0.3465 - "tiger cat"
-0.1609 - "tabby"
-0.1564 - "weasel"
-0.0844 - "Egyptian cat"
-0.0258 - "bucket"
---------------------------------------
-ALL TEST DONE
-```
-
-可以看出，我们已经成功的分类出测试图片是虎猫了。
-到这里最基本的上手指北已经完成，剩下的小伙伴们可以自行探索，我们也会不定期更新各种教程范例给大家~
+It can be seen that we have successfully classified the test pictures as tiger and cat. Here, the most basic finger north has been completed, and the rest of the friends can explore on their own. We will also update various tutorial examples to everyone from time to time ~

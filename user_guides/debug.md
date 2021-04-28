@@ -1,15 +1,15 @@
-# 调试方法
+# Debug Method
 
-## 性能 Profiler
+## Performance Profiler
 
-性能 Profiler，用于逐层耗时统计，在网络模型运行时统计 CPU 上 kernel 耗时信息，用于分析潜在的耗时问题。
+Performance Profiler, used for time-consuming statistics layer by layer, counting kernel time-consuming information on CPU when network model is running, and analyzing potential time-consuming problems.
 
-### 使用方法
+### Method
 
-- 程序执行前，添加环境变量 `export TG_DEBUG_TIME=1`，启用性能 Profiler 功能；
-- 删除环境变量 `unset TG_DEBUG_TIME`， 关闭性能 Profiler 功能。
+- Before the program is executed, add the environment variable ` export TG_DEBUG_TIME=1 = 1` to enable the performance Profiler function；
+- Delete the environment variable unset TG_DEBUG_TIME' and turn off the performance Profiler function.
 
-### logo 信息
+### logo message
 
 ```
  0 [ 7.48% :  0.7 ms]   Convolution idx:  5 shape: {1   3 100 100} -> {1   8  50  50}     int8 K: 3x3 | S: 2x2 | P: 0 1 0 1         MFLOPS:  1.08 Rate:1519
@@ -44,18 +44,18 @@
 29 [ 0.40% :  0.0 ms]       Softmax idx: 86 shape: {1 131   1   1} -> {1 131   1   1}     int8
 ```
 
-## 精度 Profiler
+## Precision Profiler
 
-精度 Profiler，用于 CPU 后端运行网络模型后，导出每一层的 input/ouput tensor data，用于分析输出结果异常的问题。
+Accuracy Profiler is used to export the input/ouput tensor data of each layer after the CPU backend runs the network model, and to analyze the problem of abnormal output results.
 
-### 使用方法
+### Method
 
-- 程序执行前，添加环境变量 `export TG_DEBUG_DATA=1`，启用精度 Profiler 功能；
-- 删除环境变量 `unset TG_DEBUG_DATA`， 关闭精度 Profiler 功能。
+- Before the program is executed, add the environment variable ` export TG_DEBUG_DATA=1 ` to enable the precision Profiler function；
+- Delete the environment variable ` unset TG_DEBUG_DATA ` and turn off the precision Profiler function.
 
-### logo 信息
+### logo message
 
-数据导出后，在程序执行的当前路径下生成 `./output` 文件夹。
+After the data is exported, `./output` Dir is generated under the current path of program execution.
 
 ```bash
 $ ./tm_classification -m models/squeezenet.tmfile -i images/cat.jpg
@@ -134,9 +134,9 @@ pool6_out_blob_data.txt
 
 ## Naive Profiler
 
-Naive Profiler，用于关闭 CPU 性能算子，后端计算只使用 Naive C 实现的 reference op，用于对比分析性能算子的计算结果。
- 
-### 使用方法
+The Naive Profiler is used to turn off the CPU performance operator, and the back-end calculation only uses the reference op implemented by Naive C, which is used to compare and analyze the calculation results of the performance operator.
 
-- 程序执行前，添加环境变量 `export TG_DEBUG_REF=1`，启用 Naive Profiler 功能；
-- 删除环境变量 `unset TG_DEBUG_REF`， 关闭精度 Naive Profiler 功能。
+### Method
+
+- Add the environment variable ` exporttg _ debug _ ref = 1` before the program is executed, and enable the Naive Profiler function；
+- Delete the environment variable ` unset TG_DEBUG_REF ` and turn off the precision Naive Profiler function.

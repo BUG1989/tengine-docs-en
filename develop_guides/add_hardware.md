@@ -1,13 +1,13 @@
-# 扩展硬件后端
+# Extend the hardware backend
 
 ------
 
-## 背景知识
-**Tengine Lite** 在设计上讲可扩展性作为第一优先级纳入考量，较早的版本注册机制依赖 `GCC GNU` 扩展，而 `GNU` 扩展并不是标准 `C` 的内容。当社区呼唤需要扩展支持到 `Microsoft Visual Studio` 上时，遇到了较多的困难。
-在决定重新设计后，注册模块的易用性有了很大的提升。新的机制通过 `CMake` 额外的处理过程，取得类似遍历和注册的效果，完成模块的注册。具体的设计和改进可以参考**架构详解**中的**重要模块介绍**。
+## background knowledge
+**Tengine Lite** is designed to consider scalability as the first priority. The earlier version registration mechanism relies on the `GCC GNU` extension, and the `GNU` extension is not part of the standard `C`. When the community called for the need to extend support to `Microsoft Visual Studio`, they encountered more difficulties.
+After deciding to redesign, the ease of use of the registration module has been greatly improved. The new mechanism achieves similar traversal and registration effects through the additional processing of `CMake`, and completes module registration. For specific design and improvement, please refer to **Important Module Introduction** in **Architecture Details**.
 
-**Tengine Lite** 在设计上将所有可以运行 `CNN` 的硬件单元均视为设备，`CPU` 就是一个典型的设备，在所有的编译选项里，`CPU` 设备都是默认包含的。如果描述一个新设备并注册，通常意义上这潜在上意味着要求编译的 **Tengine Lite** 支持异构设备切图(相关内容可以阅读**混合设备**部分)；如果注册的设备也描述了**混合精度**的接口，那么设备还支持**混合精度**。
-**Tengine Lite** 通过一个嵌套的结构体完成一个设备的描述：
+**Tengine Lite** treats all hardware units that can run `CNN` as devices in the design. `CPU` is a typical device. In all compilation options, `CPU` devices are included by default. If you describe a new device and register it, in the usual sense, this potentially means that the compiled **Tengine Lite** supports heterogeneous device cutting (for related content, please read the **mixed device** section); if the registered device is also Describes the **mixed precision** interface, then the device also supports **mixed precision**.
+**Tengine Lite** completes the description of a device through a nested structure:
 ``` C
 /*!
  * @struct nn_device_t
@@ -23,14 +23,14 @@ typedef struct device
     void*  privacy;                   //!< device privacy data
 } ir_device_t;
 ```
-从结构体 `ir_device_t` 上可以看出，设计上将一个设备(`device`)分成 6 部分，第一部分 `name` 描述了设备的名字，设备名字不允许重复；`interface` 描述了设备接口；`allocator`描述了设备相关子图的操作；`optimizer` 描述了切图和混合精度的接口；`scheduler` 描述了设备独特的调度接口。
-以上接口通常不需要全部填充，**Tengine Lite** 提供一组丰富的示例指导如何自定义并添加用户自己的设备。
+It can be seen from the structure `ir_device_t` that the design divides a device (`device`) into 6 parts. The first part `name` describes the name of the device, and the device name is not allowed to be repeated; `interface` describes the device interface; `allocator` describes the operation of device-related subgraphs; `optimizer` describes the interface of cutting graphs and mixed precision; `scheduler` describes the unique scheduling interface of the device.
+The above interfaces usually do not need to be filled in. **Tengine Lite** provides a rich set of examples to guide how to customize and add users' own devices.
 
 -----------------------------------------------
 
-## 一步一步添加一个自定义设备
-### 创建目录，编写 CMakeLists 文件
-首先在`source/device`创建一个以用户设备命名的文件夹，文件夹可以是用户的设备缩写或其他用户认为比较酷的名字(这里假设起名为`TPU`，那么目录就是`source/device/tpu`)，并从其他已经实现的 `device/xxx` 目录中复制一份 `CMakeLists.txt` 文件到当前文件夹；现在只需要对此 `CMakeLists.txt` 做些微的修改，而不需要从头创建。我们以从 `source/device/acl/CMakeLists.txt` 复制一份为例进行说明。该文件完整示例如下：
+## Add a custom device step by step
+### Create a directory and write a CMakeLists file
+First, create a folder named after the user's device in `source/device`. The folder can be the user's device abbreviation or a name that other users think is cool (here assuming the name is `TPU`, then the directory is `source/device` /tpu`), and copy a `CMakeLists.txt` file from other implemented `device/xxx` directories to the current folder; now you only need to make slight modifications to this `CMakeLists.txt`, no need Created from scratch. Let's take a copy from `source/device/acl/CMakeLists.txt` as an example. The complete example of the file is as follows:
 ``` cmake
 # 0. clear var
 UNSET (_DEV_ACL_HEADER_PATH)
@@ -99,12 +99,12 @@ SET (TENGINE_ACL_LINK_LIBRARIES    ${_DEV_ACL_LINK_LIBRARIES}     CACHE INTERNAL
 INSTALL (FILES ${_ACL_ROOT}/acl_define.h DESTINATION include/tengine RENAME acl_device.h)
 
 ```
-首先需要将使用的 `CMake` 变量的前缀进行修改，以避免潜在的变量冲突；将所有的 `ACL` 替换为`TPU`；然后修改模块的搜索根路径 `_TPU_ROOT` 为  `source/device/tpu`。
+First, you need to modify the prefix of the used `CMake` variables to avoid potential variable conflicts; replace all `ACL` with `TPU`; then modify the search root path of the module `_TPU_ROOT` to `source/device/tpu` `.
 ``` cmake
 # 1.  set source root path
 SET(_TPU_ROOT ${CMAKE_SOURCE_DIR}/source/device/tpu)
 ```
-自定义设备常常需要一些额外的`3rdparty`依赖，在 `_DEV_TPU_HEADER_PATH` 和 `_DEV_TPU_LINK_PATH` 中进行相应的修改；在 `ACL` 中，增加了 `ACL` 预编译库路径 `${CMAKE_SOURCE_DIR}/3rdparty/acl/lib`。
+Custom devices often require some additional `3rdparty` dependencies, which should be modified accordingly in `_DEV_TPU_HEADER_PATH` and `_DEV_TPU_LINK_PATH`; in `ACL`, `ACL` precompiled library path `${CMAKE_SOURCE_DIR}/3rdparty/ acl/lib`.
 ``` cmake
 # 2.  add header file path
 LIST (APPEND _DEV_TPU_HEADER_PATH      ${_TPU_ROOT})
@@ -122,7 +122,7 @@ AUX_SOURCE_DIRECTORY("${_TPU_ROOT}/op" _TPU_OPS_SOURCE)
 LIST (APPEND _DEV_TPU_DEVICE_SOURCE    ${_TPU_BASE_SOURCE})
 LIST (APPEND _DEV_TPU_DEVICE_SOURCE    ${_TPU_OPS_SOURCE})
 ```
-接下来的部分是编译相关的选项，根据实际情况修改即可。**Tengine Lite** 默认打开了 C/C++ 支持，并尝试打开标准到 `C99/C++14`，如果工具链不支持会降级为 `C98/C++11`；如果用户的代码有其他特殊要求可以根据情况调整 `_DEV_TPU_COMPILER_DEFINES`，`_DEV_TPU_COMPILER_OPTIONS`,`_DEV_TPU_LINKER_OPTIONS` 这 3 个变量。
+The next part is the compilation-related options, which can be modified according to the actual situation. **Tengine Lite** turns on C/C++ support by default, and try to open the standard to `C99/C++14`, if the tool chain does not support it, it will be downgraded to `C98/C++11`; if the user code has Other special requirements can be adjusted according to the situation `_DEV_TPU_COMPILER_DEFINES`, `_DEV_TPU_COMPILER_OPTIONS`, `_DEV_TPU_LINKER_OPTIONS` these three variables.
 ``` cmake
 # 5.  add build options for cpu device
 # 5.1 is a gcc or clang like compiler
@@ -137,12 +137,12 @@ ENDIF()
 
 # 6.  add link options
 ```
-根据实际情况调整链接库情况，修改 `_DEV_TPU_LINK_LIBRARIES` 变量。
+Adjust the link library according to the actual situation and modify the `_DEV_TPU_LINK_LIBRARIES` variable.
 ``` cmake
 # 7.  add link libs
 LIST (APPEND _DEV_TPU_LINK_LIBRARIES   tpu_runtime)
 ```
-汇总一下临时变量到模块接口变量，接口变量设计为 `cache` 的，以便跨模块进行传递(另一方面这也是不同 `device` 不应重名的原因)。
+Summarize the temporary variables to the module interface variables. The interface variables are designed as `cache` so that they can be passed across modules (on the other hand, this is also the reason why different `device`s should not be named).
 ``` cmake
 SET (TENGINE_TPU_HEADER_PATH       ${_DEV_TPU_HEADER_PATH}        CACHE INTERNAL  "Tengine TPU device header files searching path"   FORCE)
 SET (TENGINE_TPU_LINK_PATH         ${_DEV_TPU_LINK_PATH}          CACHE INTERNAL  "Tengine TPU device link libraries searching path" FORCE)
@@ -152,16 +152,16 @@ SET (TENGINE_TPU_COMPILER_OPTIONS  ${_DEV_TPU_COMPILER_OPTIONS}   CACHE INTERNAL
 SET (TENGINE_TPU_LINKER_OPTIONS    ${_DEV_TPU_LINKER_OPTIONS}     CACHE INTERNAL  "Tengine TPU about linker options"                 FORCE)
 SET (TENGINE_TPU_LINK_LIBRARIES    ${_DEV_TPU_LINK_LIBRARIES}     CACHE INTERNAL  "Tengine TPU about link libraries"                 FORCE)
 ```
-如果设备有特殊选项，可以考虑将其插入到 `install` 阶段。
+If the device has special options, consider inserting it into the `install` stage.
 ``` cmake
 # 9. install device option
 INSTALL (FILES ${_TPU_ROOT}/tpu_define.h DESTINATION include/tengine RENAME tpu_device.h)
 ```
-在根目录下的 `CMakeLists.txt` 中添加 `option` 以便编译时条件打开。
+Add `option` to `CMakeLists.txt` in the root directory to enable conditions during compilation.
 ``` cmake
 OPTION (TENGINE_ENABLE_TPU "With Awesome TPU support" OFF)
 ```
-还需要修改 `source/device/CMakeLists.txt` 添加 `Option` 相关的处理。
+It also needs to modify `source / device / CMakeLists.txt` to add `Option` related processing.
 ``` cmake
 # Awesome TPU
 IF (TENGINE_ENABLE_TPU)
@@ -177,10 +177,10 @@ IF (TENGINE_ENABLE_TPU)
     LIST (APPEND _REGISTER_DEVICE_LIST              "${CMAKE_SOURCE_DIR}/source/device/tpu/tpu_device.cc")
 ENDIF()
 ```
-其中，`_REGISTER_DEVICE_LIST` 是设备注册的核心文件，需要根据实际情况进行填写。
+Among them, `_REGISTER_DEVICE_LIST` is the core file of device registration, which needs to be filled in according to the actual situation.
 
-### 填充结构体完成设备的注册
-从某种意义上说，完成一个新设备的注册，只需要填充 `ir_device_t` 结构体，所有的其他代码工作都是围绕这个核心展开的。
+### Fill the structure to complete the device registration
+In a sense, to complete the registration of a new device, you only need to fill in the `ir_device_t` structure, and all other code work is carried out around this core.
 ``` c
 /*!
  * @struct nn_device_t
@@ -197,7 +197,7 @@ typedef struct device
 } ir_device_t;
 ```
 
-回顾 `ir_device_t` 结构体，`struct interface` 结构体描述了基本 `API` 接口：
+Reviewing the `ir_device_t` structure, the `struct interface` structure describes the basic `API` interface:
 ``` c
 /*!
  * @struct ir_interface_t
@@ -230,7 +230,7 @@ typedef struct interface
     int (*release_device)(struct device* device);
 } ir_interface_t;
 ```
-参考 `ACL`，一个可能的 `TPU` 的实现填充如下：
+Referring to `ACL`, a possible implementation of `TPU` is filled as follows:
 ``` c
 static struct interface tpu_interface = {
         .init           = tpu_dev_init,
@@ -243,11 +243,11 @@ static struct interface tpu_interface = {
         .release_device = tpu_dev_release,
 };
 ```
-`tpu_dev_init()` 是设备的全局初始化函数，注册设备时调用一次，反注册调用 `release_device()`。这个函数一般用来预申请设备内存作全局缓存，与设备驱动互操作初始化一些寄存器等。
-`tpu_dev_prerun()` 是网络预处理部分，常见的处理包含申请 `tensor` 内存、转换数据 `layout`、创建设备运行图、编译设备 `kernel` 等。这部分申请的空间等需要在 `tpu_release_graph()` 中进行清理。
-`tpu_post_run()` 与 `tpu_release_graph()` 可能会引发混淆，`tpu_post_run()` 常常用来只是清除运行一次的相关状态，与 `tpu_dev_prerun()` 相反，真正的释放工作可以放到 `tpu_release_graph()` 中进行。一个可能的场景是，运行一次分辨率的模型 `tpu_dev_prerun()` 后，换一个分辨率前运行 `tpu_post_run()`，然后再运行 `tpu_dev_prerun()`。当需要真正销毁时，运行 `tpu_release_graph()`。
+`tpu_dev_init()` is the global initialization function of the device. It is called once when registering the device, and `release_device()` is called for anti-registration. This function is generally used to pre-apply for device memory as a global cache, interoperate with device drivers to initialize some registers, etc.
+`tpu_dev_prerun()` is the network pre-processing part. Common processing includes applying for `tensor` memory, converting data `layout`, creating device running diagram, compiling device `kernel`, etc. This part of the application space needs to be cleaned up in `tpu_release_graph()`.
+`tpu_post_run()` and `tpu_release_graph()` may cause confusion. `tpu_post_run()` is often used to clear the related state of a run. Contrary to `tpu_dev_prerun()`, the real release work can be placed in `tpu_release_graph() )` in progress. One possible scenario is to run `tpu_dev_prerun()` after running the model with one resolution, then run `tpu_post_run()` before changing the resolution, and then run `tpu_dev_prerun()`. When it needs to be destroyed, run `tpu_release_graph()`.
 
-`ir_device_t` 结构体中，`struct interface` 结构体描述了基本 `API` 接口， `struct allocator` 描述了设备能力上报接口和评估和调度的接口，`struct optimizer` 描述了切图和优化相关的接口，`struct scheduler` 描述了调度相关的接口。这几个接口的核心是 `struct scheduler`，设备并不总假设实现一个 `struct scheduler`，如果设备的这个接口描述是 `nullptr`，那么引擎会使用默认注册的 **`sync scheduler`** 运行网络，详情参考 `source/scheduler/scheduler.c` 中的 `static ir_scheduler_t sync_scheduler`。用户也可以实现一份自己的 `struct scheduler` 来完成特殊的任务；结合 `struct allocator` 和 `struct optimizer` 可以产生丰富的可能。下面的描述是假设用户不实现 `struct scheduler` 的情况下的逻辑。
+In the `ir_device_t` structure, the `struct interface` structure describes the basic `API` interface, the `struct allocator` describes the device capability reporting interface and the evaluation and scheduling interface, and the `struct optimizer` describes the picture cutting and optimization related Interface, `struct scheduler` describes the interface related to scheduling. The core of these interfaces is `struct scheduler`. The device does not always assume to implement a `struct scheduler`. If the interface description of the device is `nullptr`, then the engine will use the default registered **`sync scheduler`** Run the network, refer to `static ir_scheduler_t sync_scheduler` in `source/scheduler/scheduler.c` for details. Users can also implement their own `struct scheduler` to complete special tasks; combining `struct allocator` and `struct optimizer` can produce rich possibilities. The following description assumes that the user does not implement `struct scheduler`.
 
 
 ``` cmake
@@ -258,10 +258,9 @@ static struct allocator tpu_allocator = {
         .release        = tpu_release,
 };
 ```
-在 `tpu_allocator` 中，`tpu_describe()` 上报模型的 `OP` 支持情况和精度支持情况，这里的 `OP` 和精度支持的描述并不会随网络变化而改变，潜在的含义是这种状态下总是假设用户特定设备是 `OP` 或精度 全场景支持的。以卷积为例，这意味着用户的设备支持所有模式的卷积，无论 `pad`、`stride` 、`h` 、`w` 、`c` 情况如何。如果设备实现确实需要在运行时评估，那么可以自定 `struct scheduler` 完成自定义过程。
-`tpu_evaluation()` 用来运行前评估一下已经实现的设备子图是否可运行；这在需要编译 `kernel` 时特别有用。
-`tpu_allocate()` 用来支持设备存储池的相关内容，在默认 `scheduler` 下无需填充这个入口。`tpu_release()` 是相反的释放过程。
-
+In `tpu_allocator`, `tpu_describe()` reports the model's `OP` support and accuracy support. The description of `OP` and accuracy support here will not change with network changes. The potential meaning is this state The following always assumes that the user-specific device is supported by `OP` or precision full-scene. Take convolution as an example. This means that the user's device supports all modes of convolution, regardless of the conditions of `pad`, `stride`, `h`, `w`, and `c`. If the device implementation really needs to be evaluated at runtime, you can customize the `struct scheduler` to complete the customization process.
+`tpu_evaluation()` is used to evaluate whether the implemented device submap can be run before running; this is especially useful when you need to compile `kernel`.
+`tpu_allocate()` is used to support the related content of the device storage pool, there is no need to fill this entry under the default `scheduler`. `tpu_release()` is the opposite release process.
 
 ``` cmake
 static struct optimizer tpu_optimizer = {
@@ -269,12 +268,12 @@ static struct optimizer tpu_optimizer = {
         .optimize_graph = nullptr,
 };
 ```
-在 `tpu_optimizer` 结构体中，`tpu_split_graph()` 用来实现切图，`tpu_optimize_graph()` 用来实现混合精度，其中 `tpu_split_graph()` 可以调用默认实现的 `split_graph_node_to_sub_graph()` 进行普通切图；如果有特殊需求可以结合其他结构体的不同字段形成组合。
+In the `tpu_optimizer` structure, `tpu_split_graph()` is used to implement graph cutting, and `tpu_optimize_graph()` is used to implement mixed precision. Among them, `tpu_split_graph()` can call the default implementation of `split_graph_node_to_sub_graph()` for ordinary graph cutting ; If you have special requirements, you can combine different fields of other structures to form a combination.
 
-最后，需要编写注册函数和反注册函数 `int register_tpu_device()` 和 `int unregister_tpu_device()`，需要注意的是注册函数和反注册函数的后半段就是文件名，需要和实际文件名匹配，CMake 会自动的完成注册函数的调用过程的链接。
+Finally, you need to write the registration function and the de-registration function `int register_tpu_device()` and `int unregister_tpu_device()`. It should be noted that the second half of the registration function and the de-registration function is the file name, which needs to match the actual file name. CMake The link of the calling process of the registered function will be automatically completed.
 
-## 总结
-通过上文的描述，可以知道添加一个自定义设备的核心工作就是填充 `ir_device_t` 结构体，描述完成后，设备注册的所有工作就完成了。模块化的 `device` 使得 **Tengine Lite** 非常易于扩展，并有足够的灵活性。
+## to sum up
+From the above description, we can know that the core work of adding a custom device is to fill the `ir_device_t` structure. After the description is completed, all the work of device registration is completed. The modular `device` makes **Tengine Lite** very easy to expand and has enough flexibility.
 
-## 彩蛋
-`init_tengine(void)` 函数中，当 `operator prototype` 完成注册后，注册的就是 `serializer` 和 `devices`，但在静态代码状态下函数并不会跳转，用户可以安装一款集成开发环境，比如 `Microsoft Visual Studio` 或 `Jetbrains Clion`，打开文件夹后生成 `CMake` 过程后即可进行跳转。
+## Surprise
+In the `init_tengine(void)` function, when the `operator prototype` completes the registration, the registered ones are `serializer` and `devices`, but the function does not jump in the static code state, and the user can install an integrated development environment , Such as `Microsoft Visual Studio` or `Jetbrains Clion`, after opening the folder and generating the `CMake` process, you can jump.

@@ -1,28 +1,28 @@
 # Test method
 
-Benchmark 是评估目标硬件平台网络模型运行速度的简单途径，只依赖于网络结构（xxx_benchmark.tmfile）即可。
+Benchmark is a simple way to evaluate the running speed of the network model of the target hardware platform. It only depends on the network structure (xxx_benchmark.tmfile).
 
 ## Get benchmark model
 
-虽然可以直接使用完整的 tmfile 运行 benchmark 示例，但是我们建议采用 benchmark 专用 tmfile 模型，节省文件传输时间。
+Although you can directly use the complete tmfile to run benchmark examples, we recommend using the dedicated tmfile model for benchmark to save file transfer time.
 
-- 使用模型转换工具转换前，设置以下环境变量，将生成不带参数的 tmfile 文件，专门用于 benchmark 测试。
+- Before using the model conversion tool to convert, set the following environment variables, and a tmfile file without parameters will be generated, specifically for benchmark testing.
 
 ```
 $ export TM_FOR_BENCHMARK=1
 ```
 
-- 将原始框架模型转换为 tmfile benchmark 专用模型，以 Caffe 框架的 mobilenet_v1 举例：
+- Convert the original framework model to a dedicated tmfile benchmark model, using mobilenet_v1 of the Caffe framework as an example:
 
 ```
 $ ./comvert_tm_tool -f caffe -p mobilenet_v1.prototxt -m mobilenet_v1.caffemodel -o mobilenet_v1_benchmark.tmfile
 ```
 
-我们已经提前转换了一小部分评估模型在 benchmark/models 中。
+We have already converted a small part of the evaluation models in benchmark/models in advance.
 
 ## tm_benchmark
 
-默认完成 Tengine 编译，目标平台的 benchmark 可执行程序存放在 `build/install/bin/tm_benchmark`
+Tengine compilation is completed by default, and the benchmark executable program of the target platform is stored in `build/install/bin/tm_benchmark`
 
 ## Command line
 

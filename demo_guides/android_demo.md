@@ -1,30 +1,30 @@
-# Android 工程示例
+# Android project example
 
-Android工程示例用于展示 Tengine 基于 Android 系统的各种 CPU 架构的硬件后端运行网络模型推理。
+The Android project examples are used to show the hardware back-end running network model inference of Tengine based on the various CPU architectures of the Android system.
 
-## 编译
+## Compile
 
-参考 [源码编译（Android）](../source_compile/compile_android.md) 章节生成部署所需要的以下库文件：
+Refer to the [Source Compile(Android)](../source_compile/compile_android.md) chapter to generate the following library files required for deployment:
 
 ```
 build-android/install/lib/
 └── libtengine-lite.so
 ```
 
-## 运行
+## Run
 
-### 模型格式
+### Model format
 
-CPU 后端支持加载 Float32/Float16/Uint8/Int8 tmfile，其中 Float16/Uint8/Int8 需要通过相应的模型量化工具获取。
+The CPU backend supports loading Float32/Float16/Uint8/Int8 tmfile, among which Float16/Uint8/Int8 needs to be obtained through the corresponding model quantization tool.
 
-- [Int8 量化工具使用手册](../user_guides/quant_tool_int8.md)
-- [Uint8 量化工具使用手册](../user_guides/quant_tool_uint8.md)
-- [Int8 量化工具下载地址](https://github.com/OAID/Tengine/releases/download/lite-v1.3/quant_tool_int8)
-- [Uint8 量化工具下载地址](https://github.com/OAID/Tengine/releases/download/lite-v1.3/quant_tool_uint8)
+- [Int8 Quantization Tool User Manual](../user_guides/quant_tool_int8.md)
+- [Uint8 Quantization Tool User Manual](../user_guides/quant_tool_uint8.md)
+- [Int8 quantization tool download address](https://github.com/OAID/Tengine/releases/download/lite-v1.3/quant_tool_int8)
+- [Uint8 quantization tool download address](https://github.com/OAID/Tengine/releases/download/lite-v1.3/quant_tool_uint8)
 
-### 推理精度设置
+### Inference precision setting
 
-CPU 支持 **Float32**/**Float16**/**Uint8**/**Int8** 四种精度模型进行网络模型推理，需要在执行 `prerun_graph_multithread(graph_t graph, struct options opt)` 之前通过 `struct options opt` 显式设置推理精度。
+CPU supports **Float32**/**Float16**/**Uint8**/**Int8** four precision model for network model inference. It is necessary to  set the inference precision explicitly through `struct options opt` before executing `prerun_graph_multithread(graph_t graph, struct options opt)`.
 
 Enable CPU FP32 mode
 
@@ -70,17 +70,17 @@ opt.precision = TENGINE_MODE_INT8;
 opt.affinity = 0;
 ```
 
-## 参考 Demo
+## Demo for reference
 
-- 源码请参考 [tm_classification.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification.c)
-- 源码请参考 [tm_classification_fp16.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_fp16.c)
-- 源码请参考 [tm_classification_uint8.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_uint8.c)
-- 源码请参考 [tm_classification_int8.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_int8.c)
+- Please refer to the source code [tm_classification.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification.c)
+- Please refer to the source code [tm_classification_fp16.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_fp16.c)
+- Please refer to the source code [tm_classification_uint8.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_uint8.c)
+- Please refer to the source code [tm_classification_int8.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_int8.c)
 
 
-### 使用 C API 预测
+### Using C API to make predictions
 
-Android demo 大多数基于 C API 开发，调用 C API 大致分为以下几个步骤。更详细的 API 描述请参考：[Tengine C API](../api_reference/c_api_doc.md)。
+Most Android demos are developed based on C API. Calling C API is roughly divided into the following steps. For a more detailed API description, please refer to: [Tengine C API](../api_reference/c_api_doc.md).
 
 ```c++
 /* set runtime options */
@@ -125,10 +125,9 @@ destroy_graph(graph);
 release_tengine();
 ```
 
-### 使用 C++ API 预测
+### Using C++ API to make predictions
 
-Android demo 同时提供 C++ API 简化开发流程，调用 C++ API 大致分为以下几个步骤。更详细的 API 描述请参考：[Tengine C++ API](../api_reference/cxx_api_doc.md)。
-
+Android demo also provides C++ API to simplify the development process. Calling C++ API is roughly divided into the following steps. For more detailed API description, please refer to: [Tengine C++ API](../api_reference/cxx_api_doc.md).
 ```c++
 /* inital tengine */
 init_tengine();
@@ -163,13 +162,13 @@ somenet.extract_tensor("prob", output_tensor);
 release_tengine();
 ```
 
-### 执行结果
+### The result of execution
 
-使用adb 连接上Android 设备，以ubuntu环境为例，命令如下：
+Use adb to connect to the Android device, taking the ubuntu environment as an example, the command is as follows:
 ```bash
-sudo apt install adb  #安装adb，使电脑可以与Android设备通信。并查看Android设备的ip。
-adb connect  [安卓设备ip]
-adb devices #确保可以看到设备 
+sudo apt install adb #Install adb so that the computer can communicate with Android devices. And check the ip of the Android device.
+adb connect [Android device ip]
+adb devices #Ensure that the device can be seen
 
 adb push tm_classification   /data/local/tmp/ 
 adb push cat.jpg             /data/local/tmp/
@@ -178,7 +177,7 @@ adb push libtengine-lite.so  /data/local/tmp/
 
 adb shell 
 
-#此时进入了Android设备的终端
+#Enter the terminal of the Android device at this time
 cd /data/local/tmp
 ./tm_classification -m mobilenet.tmfile -i cat.jpg -g 224,224 -s 0.017,0.017,0.017 -w 104.007,116.669,122.679
 ```

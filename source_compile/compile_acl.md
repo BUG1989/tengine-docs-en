@@ -1,4 +1,4 @@
-# 源码编译（ACL）
+# Source Code Compilation（ACL）
 
 ## Brief
 
@@ -112,10 +112,10 @@ BOX:( 106 , 141 ),( 574 , 415 )
 ======================================
 ```
 
-## 支持硬件列表
+## List of Supported Hardware
 
-| 芯片厂家  | 型号      |
+| Chip Manufacturer | Product Model |
 | -------- | --------- |
 | arm-mali | T-860、G31、G52|
 
-## 支持算子列表
+## List of Supported Operators

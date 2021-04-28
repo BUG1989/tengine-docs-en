@@ -1,9 +1,9 @@
 # Road map
 
-每个季度更新一次 Flag。
+Update the Flag once every quarter.
 
 ## 2021Q1
-预计发布 2021-04-15
+It is expected to be released in 2021-04-15
 
 - [ ] optimize int8 implement on armv7/armv8.1
 - [ ] optimize AutoKernel implement on x86

@@ -1,142 +1,134 @@
-# 模型可视化工具
+# Model Visualization Tool
 
-### 简介
+### Introduction
 
-Netron是常用的机器学习模型可视化工具。
+Netron is a commonly used visualization tool for machine learning models.
 
-### 目的
+### Purpose
 
-适配Netron项目，使其支持解析tmfile，可视化Tengine模型。
+Adapt Netron project to support parsing tmfile and visualizing Tengine model.
 
-###  Tengine模型
+###  Tengine Model
 
-Tengine模型为后缀 ”.tmfile”文件，由Tengine: Covert Tool通过其他训练框架转换得到，存储数据格式为二进制。
+Tengine model is a suffix ".tmfile" file, which is converted by Tengine-Covert-Tool through other training frameworks, and the stored data format is binary.
 
-###  原理介绍
+###  Principle Introduction
 
-1. Netron是基于Node.js开发的Electron应用程序，使用的语言是javascript；
+1. Netron is an Electron application developed based on Node.js, and its language is javascript；
 
-2. Electron应用程序是使用javascript开发的跨平台、应用程序框架；
+2. Electron application is a cross-platform and application framework developed using javascript；
 
-3. Netron在解析模型文件后，读取到
+3. After parsing the model file, Netron reads
 
-   a)   模型信息，Model Properties；
+   a)   Model information，Model Properties；
 
-   b)   模型输入、输出，Model Inputs/Outputs，包含输入数据尺寸；
+   b)   Model input and output，Include size of input data；
 
-   c)   模型绘图，左侧显示模型结构；
+   c)   Model drawing, the left side shows the model structure；
 
-   d)   节点信息，Node Properties，Attributes，Inputs, Outputs等；
-
-并显示。
-
-
+   d)   Node information，Node Properties，Attributes，Inputs, Outputs, etc.
 
  
 
-## Model Properties
+## Model Properties+
 
-进入Netron界面后，点左上角图标或点击灰色节点（如图1中红色标记所示），弹出右侧边栏：Model Properties。
+After entering the Netron interface, click the icon in the upper left corner or click the gray node (as shown by the red mark in Figure 1) to pop up the right sidebar: Model Properties.
 
  
 
 | ![img](https://raw.githubusercontent.com/BUG1989/tengine-docs/main/images/clip_image002.jpg) |
 | ------------------------------------------------------------ |
-| 图1  模型信息 Model Properties                               |
+| Figure 1. Model Properties                                   |
 
  
 
 （1）  MODEL PROPERTIES
 
-a)  format：解析到Tengine模型文件时显示Tengine V2.0；
+a)  format：Tmfile v2.0；
 
-b)  source: 源模型格式，如通过Caffe转换成tmfile，则显示Caffe；如通过TensorFlow转换成tmfile，则显示TensorFlow； 
+b)  source:  Source model format, if converted into tmfile by Caffe, displays Caffe; TensorFlow is displayed if it is converted to tmfile through TensorFlow； 
 
 （2）  INPUTS
 
 a)  data:
 
-name: 输入tensor的名称，如此处为data; 
+name: The name of the graph input tensor. The name here is "data"; 
 
-type: 数据类型，此处为FP32格式；维度信息，此模型为 [10,3,227,227]；
+type: Data type, here is FP32 format; Dimension information is [10,3,227,227] in this model；
 
 （3）  OUTPUTS
 
 a)  prob:
 
-name: 输出tensor的名称，如此处为prob; 
+name: The name of the graph output tensor. The name here is "prob"; 
 
-type: 数据类型，此处为FP32格式；维度信息位置，须经过infershape后由Tengine计算得到输出尺寸。
-
- 
-
-##  模型绘图
-
-Tengine中，模型通过tensor连接。
-
-节点Node连线形成网络，并根据不同算子类型显示不同颜色。如 ”layer”类型节点显示为蓝色，”Activation”相关节点显示为深红色，”Normalize”相关节点显示为深绿色。
-
-Convolution算子默认显示weight和bias维度信息。
+type: Data type, here is FP32 format; Dimension information of tensors; Tensors' size is calculated by Tengine after passing through infershape.
 
  
+
+##  Model Drawing
+
+In Tengine, the models are connected by tensors.
+
+Nodes are connected to form a network and different colors are displayed according to different operator types. For example, "layer" type nodes are displayed in blue, "Activation" related nodes are displayed in deep red and "Normalize" related nodes are displayed in dark green.
+
+The Convolution operator displays weight and bias dimension information by default.
 
 | ![img](https://raw.githubusercontent.com/BUG1989/tengine-docs/main/images/clip_image004.jpg) |
 | ------------------------------------------------------------ |
-| 图2  模型绘图                                                |
+| Figure 2. Model Drawing                                      |
 
  
 
 
 
- 
+## Node Information
 
-## 节点信息
+Each node contains an Operator.
 
-节点为Node，每个节点包含一个算子Operator。
-
-算子具有类型type、名称name、属性ATTRIBUTES及输入INPUTS、输出OUTPUTS。
+Operators have type type, name name, ATTRIBUTES, INPUTS and OUTPUTS.
 
 | ![img](https://raw.githubusercontent.com/BUG1989/tengine-docs/main/images/clip_image006.jpg) |
 | ------------------------------------------------------------ |
-| 图2  模型绘图                                                |
+| Figure 3. Node Information                                   |
 
  
 
-点击绘图区的Node，右侧弹出该节点的详细信息，其中包括：
+Click Node in the drawing area, and the detailed information of the node will pop up on the right side, including:
 
 （1）  NODE PROPERTIES:
 
-a)  type: 算子类型，如Convolution算子则显示Convolution;
+a)  type: Operator type, such as Convolution operator, displays Convolution;
 
-b)  name: 节点名称，如节点名为conv-relu_conv1（绘图区被选中、红色标记的Convolution节点）;
+b)  name: Node name, for example, the node name is conv-relu_conv1 (the Convolution node with the drawing area selected and marked in red);
 
-（2）  ATTRIBUTIES: 有参数的算子会显示，无参数的算子不显示；根据算子类型的不同，显示不同的ATTRIBUTES列表；如【5 不同算子的Attributes】根据不同算子类型有详细列表。
+（2） ATTRIBUTIES: operators with parameters will be displayed, but operators without parameters will not be displayed; According to different operator types, different ATTRIBUTES lists are displayed; For example, [5 Attributes of Different Operators] has a detailed list according to different operator types.
 
-（3）  INPUTS: 显示该节点的输入，其中：
+（3）  INPUTS: displays the inputs of this node, including:
 
-a)   input：显示输入tensor名称，即前一个Node的输出；
+a)   input：The name of the node input tensor.
 
-b)   weight/bias/…：为输入的其他参数，如weight，bias等。在Tengine中，weight、bias等作为Node，以输出tensor的形式，传递数据给其对应的节点。
+b)   weight/bias/…：Input parameters of the node.
 
-（4）  OUTPUTS: 输出tensor：
+（4）  OUTPUTS:  displays the outputs of this node, including:
 
-此处conv-relu_conv1节点的输出实际为Convolution后Relu的输出，其中Relu节点在模型转换时被融合进Convolution节点，此处不影响计算；
+The name of the node output tensor；
 
-此输出tensor对应下一个Node的输入。
+Conv and relu merge here。
 
 
 
- 
 
-## 不同算子的Attributes
 
-目前提供92个Node类型（即算子类型，但包括了对INPUT和Const的处理）的解析。
+## Attributes of different operators
 
-### 算子列表
+At present, there are 92 Node types (i.e., operator types, including the processing of INPUT and Const).
 
-其中无参数算子如下表：
+### Operator List
 
-| 编号 | 算子              | 分类       |
+The nonparametric operators are listed in the following table：
+
+| ID   | OPERATOR          | CATALOG    |
 | ---- | ----------------- | ---------- |
 | 0    | Accuracy          | /          |
 | 4    | Const             | /          |
@@ -172,7 +164,7 @@ b)   weight/bias/…：为输入的其他参数，如weight，bias等。在Tengi
 
 有参数算子如下表：
 
-| 编号 | 算子                 | 分类          |
+| ID   | OPERATOR             | CATALOG       |
 | ---- | -------------------- | ------------- |
 | 1    | BatchNormalization   | Normalization |
 | 2    | BilinearResize       | Shape         |
@@ -247,791 +239,791 @@ b)   weight/bias/…：为输入的其他参数，如weight，bias等。在Tengi
 | 93   | Scatter              | Layer         |
 | 96   | Tile                 | Layer         |
 
-（表中“分类”一栏对算子进行了分类，与其显示颜色有关，“/”代表未知分类。）
+(The column "CATALOG" in the table classifies the operators, which is related to their display colors, and "/"represents unknown classification. )
 
  
 
-###  有参数算子属性列表
+###  Attribute List of Parametric Operators
 
 ####  BatchNormalization
 
-| 参数           | 数据类型 | 说明        |
-| -------------- | -------- | ----------- |
-| rescale_factor | float32  | 默认值  1   |
-| eps            | float32  | 默认值 1e-5 |
-| caffe_flavor   | int32    | 默认值 0    |
+| Parameter      | Data Type | Description     |
+| -------------- | --------- | --------------- |
+| rescale_factor | float32   | default:   1    |
+| eps            | float32   | default:   1e-5 |
+| caffe_flavor   | int32     | default:   0    |
 
  
 
 ####  BilinearResize
 
-| 参数    | 数据类型 | 说明                              |
-| ------- | -------- | --------------------------------- |
-| scale_x | float32  | 水平方向变换因子                  |
-| scale_y | float32  | 垂直方向变换因子                  |
-| type    | int32    | 0: NEAREST_NEIGHBOR    1: BILIEAR |
+| Parameter | Data Type | Description                                |
+| --------- | --------- | ------------------------------------------ |
+| scale_x   | float32   | Horizontal direction transformation factor |
+| scale_y   | float32   | Vertical direction transformation factor   |
+| type      | int32     | 0: NEAREST_NEIGHBOR    1: BILIEAR          |
 
  
 
 ####  Concat
 
-| 参数 | 数据类型 | 说明                                                       |
-| ---- | -------- | ---------------------------------------------------------- |
-| axis | int32    | 合并操作轴，支持“0，1，2，3”，NCHW 默认为1， NHWC 默认为3. |
+| Parameter | Data Type | Description                                                  |
+| --------- | --------- | ------------------------------------------------------------ |
+| axis      | int32     | Merging operation axes supports "0, 1, 2, 3". The default value of NCHW is 1, and the default value of NHWC is 3. |
 
  
 
 ####  Convolution
 
-| 参数           | 数据类型 | 说明                                                    |
-| -------------- | -------- | ------------------------------------------------------- |
-| kernel_h       | int32    | 垂直方向 Kernel 大小，默认值为1                         |
-| kernel_w       | int32    | 水平方向 Kernel 大小，默认值为1                         |
-| stride_h       | int32    | 垂直方向 Stride 大小，默认值为1                         |
-| stride_w       | int32    | 水平方向 Stride 大小，默认值为1                         |
-| dilation_h     | int32    | 垂直方向空洞因子值，默认值为1                           |
-| dilation_w     | int32    | 水平方向空洞因子值,  默认值为1                          |
-| input_channel  | int32    | 输入特征图通道数（creat_graph后）                       |
-| output_channel | int32    | 输出特征图通道数                                        |
-| group          | int32    | 分组数，默认值为  1                                     |
-| activation     | int32    | 是否和Relu合并，0：RELU   1: RELU1 6: RELU6，默认值为-1 |
-| pad_h0         | int32    | top padding rows，默认值为0                             |
-| pad_w0         | int32    | left padding columns，默认值为0                         |
-| pad_h1         | int32    | bottom padding rows，默认值为0                          |
-| pad_w1         | int32    | right padding columns，默认值为0                        |
+| Parameter      | Data Type | Description                                                  |
+| -------------- | --------- | ------------------------------------------------------------ |
+| kernel_h       | int32     | Kernel size in vertical direction, the default value is 1    |
+| kernel_w       | int32     | Horizontal Kernel size, the default value is 1               |
+| stride_h       | int32     | Vertical Stride size, the default value is 1                 |
+| stride_w       | int32     | Horizontal Stride size, the default value is 1               |
+| dilation_h     | int32     | Vertical hole factor value, the default value is 1           |
+| dilation_w     | int32     | Horizontal hole factor value, the default value is 1         |
+| input_channel  | int32     | The channel number of input feature                          |
+| output_channel | int32     | The channel number of output feature                         |
+| group          | int32     | Group number. Default is 1                                   |
+| activation     | int32     | Merge Relu or not. -1: Don't merge; 0: Relu; 1:Relu1; 6:Relu6. Default is -1 |
+| pad_h0         | int32     | Top padding rows. Default is 0                               |
+| pad_w0         | int32     | Left padding columns. Default is 0                           |
+| pad_h1         | int32     | Bottom padding rows. Default is 0                            |
+| pad_w1         | int32     | Right padding columns. Default is 0                          |
 
  
 
 #### DeConvolution
 
-| 参数       | 数据类型 | 说明                                         |
-| ---------- | -------- | -------------------------------------------- |
-| num_output | int32    | 输出元素个数                                 |
-| kernel_h   | int32    | 垂直方向 Kernel 大小                         |
-| kernel_w   | int32    | 水平方向 Kernel 大小                         |
-| stride_h   | int32    | 垂直方向 Stride 大小                         |
-| stride_w   | int32    | 水平方向 Stride 大小                         |
-| pad_w0     | int32    | left padding columns                         |
-| pad_h0     | int32    | top padding rows                             |
-| pad_w1     | int32    | right padding columns                        |
-| pad_h1     | int32    | bottom padding rows                          |
-| dilation_h | int32    | 垂直方向空洞因子值                           |
-| dilation_w | int32    | 水平方向空洞因子值                           |
-| group      | int32    | 分组数，默认值为  1                          |
-| activation | int32    | 是否和Relu合并，0：RELU   1: RELU1  6: RELU6 |
+| Parameter  | Data Type | Description                                                  |
+| ---------- | --------- | ------------------------------------------------------------ |
+| num_output | int32     | Number of output elements                                    |
+| kernel_h   | int32     | Kernel size in vertical direction                            |
+| kernel_w   | int32     | Kernel size in horizontal direction                          |
+| stride_h   | int32     | Stride size in vertical direction                            |
+| stride_w   | int32     | Stride size in horizontal direction                          |
+| pad_w0     | int32     | Left padding columns                                         |
+| pad_h0     | int32     | Top padding rows                                             |
+| pad_w1     | int32     | Right padding columns                                        |
+| pad_h1     | int32     | Bottom padding rows                                          |
+| dilation_h | int32     | Dilation size in vertical direction                          |
+| dilation_w | int32     | Dilation size in horizontal direction                        |
+| group      | int32     | Group number. Default is 1                                   |
+| activation | int32     | Merge Relu or not. -1: Don't merge; 0: Relu; 1:Relu1; 6:Relu6. Default is -1 |
 
  
 
 #### DetectionOutput
 
-| 参数                 | 数据类型 | 说明                              |
-| -------------------- | -------- | --------------------------------- |
-| num_classes          | int32    | 检测类别数                        |
-| keep_top_k           | int32    | NMS操作后， bounding box 个数     |
-| nms_top_k            | int32    | NMS操作前，置信度高的预测框的个数 |
-| confidence_threshold | float32  | 置信度阈值                        |
-| nms_threshold        | float32  | 非极大值抑制阈值                  |
+| Parameter            | Data Type | Description                                                  |
+| -------------------- | --------- | ------------------------------------------------------------ |
+| num_classes          | int32     | Number of detection categories                               |
+| keep_top_k           | int32     | After NMS operation, the number of bounding box nms_top_kint32 |
+| nms_top_k            | int32     | Number of prediction frames with high confidence before NMS operation |
+| confidence_threshold | float32   | Confidence threshold                                         |
+| nms_threshold        | float32   | Non-maximum suppression threshold                            |
 
  
 
 #### Eltwise
 
-| 参数         | 数据类型 | 说明                                                         |
-| ------------ | -------- | ------------------------------------------------------------ |
-| type         | uint32   | 0: ELT_PROD  1: ELT_PROD_SCALAR  2: ELT_SUM  3: ELT_SUM_SCALAR  4: ELT_SUB  5: ELT_SUB_SCALAR  6: ELT_MAX  7: ELT_RSQRT  8: ELT_DIV  9: ELT_LOG  10: ELT_EXP  11: ELT_SQRT  12: ELT_FLOOR  13: ELT_SQUARE  14: ELT_POW  15:  ELT_POWER |
-| caffe_flavor | int32    | 是否支持caffe 格式 1：表示caffe 框架计算模式                 |
+| Parameter    | Data Type | Description                                                  |
+| ------------ | --------- | ------------------------------------------------------------ |
+| type         | uint32    | 0: ELT_PROD  1: ELT_PROD_SCALAR  2: ELT_SUM  3: ELT_SUM_SCALAR  4: ELT_SUB  5: ELT_SUB_SCALAR  6: ELT_MAX  7: ELT_RSQRT  8: ELT_DIV  9: ELT_LOG  10: ELT_EXP  11: ELT_SQRT  12: ELT_FLOOR  13: ELT_SQUARE  14: ELT_POW  15:  ELT_POWER |
+| caffe_flavor | int32     | Whether caffe Format 1 is supported: indicates the caffe framework calculation mode |
 
  
 
 ####  Flatten
 
-| 参数     | 数据类型 | 说明   |
-| -------- | -------- | ------ |
-| axis     | int32    | 起始轴 |
-| end_axis | int32    | 终止轴 |
+| Parameter | Data Type | Description      |
+| --------- | --------- | ---------------- |
+| axis      | int32     | Starting axis    |
+| end_axis  | int32     | Termination axis |
 
  
 
 #### FullyConnected
 
-| 参数       | 数据类型 | 说明           |
-| ---------- | -------- | -------------- |
-| num_output | int32    | 输出特征图大小 |
+| Parameter  | Data Type | Description             |
+| ---------- | --------- | ----------------------- |
+| num_output | int32     | Output feature map size |
 
  
 
 #### LRN
 
-| 参数        | 数据类型 | 说明           |
-| ----------- | -------- | -------------- |
-| local_size  | int32    | 归一化区域大小 |
-| alpha       | float32  | 默认为*1e-05*  |
-| beta        | float32  | 默认为0.75     |
-| norm_region | int32    | Norm 范围      |
-| k           | float32  | 默认为2        |
+| Parameter   | Data Type | Description          |
+| ----------- | --------- | -------------------- |
+| local_size  | int32     | Normalized area size |
+| alpha       | float32   | *Default is 1e-05*   |
+| beta        | float32   | Default is 0.75      |
+| norm_region | int32     | Range of norm        |
+| k           | float32   | Default is 2         |
 
  
 
 #### Normalize
 
-| 参数           | 数据类型 | 说明                         |
-| -------------- | -------- | ---------------------------- |
-| across_spatial | int32    | 表示是否对整个图片进行归一化 |
-| channel_shared | int32    | 表示  scale 是否相同         |
+| 参数           | Data Type | Description                                      |
+| -------------- | --------- | ------------------------------------------------ |
+| across_spatial | int32     | Indicates whether to normalize the whole picture |
+| channel_shared | int32     | Indicates whether scale is the same              |
 
  
 
 #### Permute
 
-| 参数   | 数据类型 | 说明             |
-| ------ | -------- | ---------------- |
-| flag   | int32    | 未使用           |
-| order0 | int32    | permute 之前的轴 |
-| order1 | int32    | permute 之前的轴 |
-| order2 | int32    | permute 之前的轴 |
-| order3 | int32    | permute 之前的轴 |
+| Parameter | Data Type | Description           |
+| --------- | --------- | --------------------- |
+| flag      | int32     | Reservation parameter |
+| order0    | int32     | Axis before permute   |
+| order1    | int32     | Axis before permute   |
+| order2    | int32     | Axis before permute   |
+| order3    | int32     | Axis before permute   |
 
  
 
 #### Pooling
 
-| 参数         | 数据类型 | 说明                                                 |
-| ------------ | -------- | ---------------------------------------------------- |
-| alg          | int32    | 说明 pooling的计算方法，0 :MaxPooling   1:AvgPooling |
-| kernel_h     | int32    | 垂直方向 Kernel 大小                                 |
-| kernel_w     | int32    | 水平方向 Kernel 大小                                 |
-| stride_h     | int32    | 垂直方向 Stride 大小                                 |
-| stride_w     | int32    | 水平方向 Stride 大小                                 |
-| global       | int32    | 1：Global Pooling 标志                               |
-| caffe_flavor | int32    | 1：Caffe 框架特殊处理标志                            |
-| pad_h0       | int32    | top padding columns                                  |
-| pad_w0       | int32    | left padding rows                                    |
-| pad_h1       | int32    | bottom padding columns                               |
-| pad_w1       | int32    | right padding rows                                   |
+| Parameter    | Data Type | Description                         |
+| ------------ | --------- | ----------------------------------- |
+| alg          | int32     | 0 :MaxPooling   1:AvgPooling        |
+| kernel_h     | int32     | Kernel size in vertical direction   |
+| kernel_w     | int32     | Kernel size in horizontal direction |
+| stride_h     | int32     | Stride size in vertical direction   |
+| stride_w     | int32     | Stride size in horizontal direction |
+| global       | int32     | 1：Global Pooling                   |
+| caffe_flavor | int32     | 1：for caffe's special case         |
+| pad_h0       | int32     | Top padding columns                 |
+| pad_w0       | int32     | Left padding rows                   |
+| pad_h1       | int32     | Bottom padding columns              |
+| pad_w1       | int32     | Right padding rows                  |
 
  
 
 #### PriorBox
 
-| 参数                   | 数据类型     | 说明                                         |
+| Parameter              | Data Type    | Description                                  |
 | ---------------------- | ------------ | -------------------------------------------- |
-| offset_vf_min_size     | tm_uoffset_t | offset of TM2_Vector_floats  <min_sizes>     |
-| offset_vf_max_size     | tm_uoffset_t | offset of TM2_Vector_floats  <max_sizes>     |
-| offset_vf_variance     | tm_uoffset_t | offset of TM2_Vector_floats  <variances>     |
-| offset_vf_aspect_ratio | tm_uoffset_t | offset of TM2_Vector_floats  <aspect_ratios> |
-| flip                   | int32        | 是否翻转，默认值为  0                        |
-| clip                   | int32        | 是否裁剪，默认值为  0                        |
-| img_size               | int32        | 候选框大小                                   |
-| img_h                  | int32        | 候选框在 height 上的偏移                     |
-| img_w                  | int32        | 候选框在 width 上的偏移                      |
-| step_w                 | float32      | 候选框在 width 上的步长                      |
-| step_h                 | float32      | 候选框在  height 上的步长                    |
-| offset                 | float32      | 候选框中心位移                               |
-| num_priors             | int32        | 默认候选框个数                               |
-| out_dim                | int32        | 输出个数                                     |
+| offset_vf_min_size     | tm_uoffset_t | Offset of TM2_Vector_floats  <min_sizes>     |
+| offset_vf_max_size     | tm_uoffset_t | Offset of TM2_Vector_floats  <max_sizes>     |
+| offset_vf_variance     | tm_uoffset_t | Offset of TM2_Vector_floats  <variances>     |
+| offset_vf_aspect_ratio | tm_uoffset_t | Offset of TM2_Vector_floats  <aspect_ratios> |
+| flip                   | int32        | Flip or not, the default value is 0          |
+| clip                   | int32        | clip or not, the default value is 0          |
+| img_size               | int32        | Candidate box size                           |
+| img_h                  | int32        | Offset of candidate box in height            |
+| img_w                  | int32        | Offset of candidate box in width             |
+| step_h                 | float32      | Step size of candidate box on height         |
+| step_w                 | float32      | Step size of candidate box on width          |
+| offset                 | float32      | Center displacement of candidate frame       |
+| num_priors             | int32        | Default number of candidate boxes            |
+| out_dim                | int32        | Output number                                |
 
  
 
 #### Region
 
-| 参数                 | 数据类型     | 说明                                  |
+| Parameter            | Data Type    | Description                           |
 | -------------------- | ------------ | ------------------------------------- |
-| num_classes          | int32        | 检测类别总数                          |
+| num_classes          | int32        | Total number of detection categories  |
 | side                 | int32        | NULL                                  |
-| num_box              | int32        | 候选框数                              |
-| coords               | int32        | 坐标个数                              |
-| confidence_threshold | float32      | 置信度阈值                            |
-| nms_threshold        | float32      | 非极大值抑制阈值                      |
-| offset_vf_biases     | tm_uoffset_t | offset of TM2_Vector_floats  <biases> |
+| num_box              | int32        | Number of candidate boxes             |
+| coords               | int32        | Number of coordinates                 |
+| confidence_threshold | float32      | Confidence threshold                  |
+| nms_threshold        | float32      | Non-maximum suppression threshold     |
+| offset_vf_biases     | tm_uoffset_t | Offset of TM2_Vector_floats  <biases> |
 
  
 
 #### ReLU
 
-| 参数           | 数据类型 | 说明                                |
-| -------------- | -------- | ----------------------------------- |
-| negative_slope | float32  | 对标准的ReLU函数进行变化，默认值为0 |
+| Parameter      | Data Type | Description                                                  |
+| -------------- | --------- | ------------------------------------------------------------ |
+| negative_slope | float32   | Change the standard ReLU function, and the default value is 0 |
 
  
 
 #### Reorg
 
-| 参数   | 数据类型 | 说明     |
-| ------ | -------- | -------- |
-| Stride | int32    | 步进大小 |
+| Parameter | Data Type | Description |
+| --------- | --------- | ----------- |
+| Stride    | int32     | Step size   |
 
  
 
 #### Reshape
 
-| 参数     | 数据类型 | 说明              |
-| -------- | -------- | ----------------- |
-| dim_0    | int32    | Batch             |
-| dim_1    | int32    | Channel           |
-| dim_2    | int32    | Height            |
-| dim_3    | int32    | Width             |
-| dim_size | int32    | Dim 大小          |
-| axis     | int32    | 指定 reshape 维度 |
+| Parameter | Data Type | Description                   |
+| --------- | --------- | ----------------------------- |
+| dim_0     | int32     | Batch                         |
+| dim_1     | int32     | Channel                       |
+| dim_2     | int32     | Height                        |
+| dim_3     | int32     | Width                         |
+| dim_size  | int32s    | Dim size                      |
+| axis      | int32     | Specify the reshape dimension |
 
  
 
 #### RoiPooling
 
-| 参数          | 数据类型 | 说明                                           |
-| ------------- | -------- | ---------------------------------------------- |
-| pooled_h      | int32    | 池化高度                                       |
-| pooled_w      | int32    | 池化宽度                                       |
-| spatial_scale | float32  | 用于将  cords 从输入比例转换为池化时使用的比例 |
+| Parameter     | Data Type | Description                                          |
+| ------------- | --------- | ---------------------------------------------------- |
+| pooled_h      | int32     | Pool height                                          |
+| pooled_w      | int32     | Pool width                                           |
+| spatial_scale | float32   | Used to convert cords from input scale to pool scale |
 
  
 
 #### RPN
 
-| 参数                    | 数据类型     | 说明                                          |
-| ----------------------- | ------------ | --------------------------------------------- |
-| offset_vf_ratios        | tm_uoffset_t | pointer to TM2_Vector_floats  <ratios>        |
-| offset_vf_anchor_scales | tm_uoffset_t | pointer to  TM2_Vector_floats <anchor_scales> |
-| feat_stride             | int32        | 特征值步进大小                                |
-| basesize                | int32        | 基础尺寸                                      |
-| min_size                | int32        | 最小尺寸                                      |
-| per_nms_topn            | int32        | NMS操作后， bounding box 个数                 |
-| post_nms_topn           | int32        | NMS操作前，置信度高的预测框的个数             |
-| nms_thresh              | float32      | 非极大值抑制阈值                              |
-| offset_va_anchors       | tm_uoffset_t | offset of TM2_Vector_anchors  <anchors>       |
+| Parameter               | Data Type    | Description                                                  |
+| ----------------------- | ------------ | ------------------------------------------------------------ |
+| offset_vf_ratios        | tm_uoffset_t | pointer to TM2_Vector_floats  <ratios>                       |
+| offset_vf_anchor_scales | tm_uoffset_t | pointer to  TM2_Vector_floats <anchor_scales>                |
+| feat_stride             | int32        | Eigenvalue step size                                         |
+| basesize                | int32        | Foundation size                                              |
+| min_size                | int32        | minimum size                                                 |
+| per_nms_topn            | int32        | The number of bounding box after NMS operation               |
+| post_nms_topn           | int32        | Number of prediction frames with high confidence before NMS operation |
+| nms_thresh              | float32      | Non-maximum suppression threshold                            |
+| offset_va_anchors       | tm_uoffset_t | Offset of TM2_Vector_anchors  <anchors>                      |
 
  
 
 #### Scale
 
-| 参数      | 数据类型 | 说明       |
-| --------- | -------- | ---------- |
-| axis      | int32    | 操作轴     |
-| num_axes  | int32    | 缩放的比例 |
-| bias_term | int32    | 缩放的偏置 |
+| Parameter | Data Type | Description       |
+| --------- | --------- | ----------------- |
+| axis      | int32     | Operating shaft   |
+| num_axes  | int32     | Scale of scaling  |
+| bias_term | int32     | Offset of scaling |
 
  
 
 #### Slice
 
-| 参数                   | 数据类型     | 说明                                                         |
+| Parameter              | Data Type    | Description                                                  |
 | ---------------------- | ------------ | ------------------------------------------------------------ |
-| axis                   | int32        | 操作轴                                                       |
-| offset_vi_slice_points | tm_uoffset_t | offset of TM2_Vector_dims  <slice_points>  各个轴的起始维度，大小等于轴数 |
+| axis                   | int32        | Operating shaft                                              |
+| offset_vi_slice_points | tm_uoffset_t | Offset of TM2_Vector_dims  <slice_points>  ;The starting dimension of each axis is equal to the number of axes |
 | offset_vi_begins       | tm_uoffset_t | offset of TM2_Vector_dims  <begins>                          |
-| offset_vi_sizes        | tm_uoffset_t | offset of TM2_Vector_dims  <sizes>  各个轴的截止维度,  大小等于轴数 |
-| iscaffe                | int32        | True: 表明是 caffe 框架中的  slice                           |
-| ismxnet                | int32        | True: 表明是  mxnet 框架中的slice                            |
-| begin                  | int32        | 各个轴上切片的起始索引值                                     |
-| end                    | int32        | 各个轴上切片的结束索引值                                     |
+| offset_vi_sizes        | tm_uoffset_t | offset of TM2_Vector_dims  <sizes> The cut-off dimension of each axis is equal to the number of axes |
+| iscaffe                | int32        | True: Slice corresponding to Caffe                           |
+| ismxnet                | int32        | True: Slice corresponding to MxNet                           |
+| begin                  | int32        | The starting index value of the slice on each axis           |
+| end                    | int32        | End index value of slice on each axis                        |
 
  
 
 #### SoftMax
 
-| 参数 | 数据类型 | 说明   |
-| ---- | -------- | ------ |
-| axis | int32    | 操作轴 |
+| Parameter | Data Type | Description     |
+| --------- | --------- | --------------- |
+| axis      | int32     | Operating shaft |
 
  
 
 #### DetectionPostProcess
 
-| 参数                      | 数据类型     | 说明                         |
-| ------------------------- | ------------ | ---------------------------- |
-| max_detections            | int32        | 最大检测数量                 |
-| max_classes_per_detection | int32        | 每个检测框中的最大分类类别数 |
-| nms_score_threshold       | float32      | 非极大值抑制得分阈值         |
-| nms_iou_threshold         | float32      | 非极大值抑制IOU阈值          |
-| num_classes               | int32        | 检测类别总数                 |
-| offset_vf_scales          | tm_uoffset_t | Scale参数                    |
+| Parameter                 | Data Type    | Description                                                  |
+| ------------------------- | ------------ | ------------------------------------------------------------ |
+| max_detections            | int32        | Maximum number of detections                                 |
+| max_classes_per_detection | int32        | Maximum number of classification categories in each detection frame |
+| nms_score_threshold       | float32      | Non-maximum inhibition score threshold                       |
+| nms_iou_threshold         | float32      | Non-maximum suppression IOU threshold                        |
+| num_classes               | int32        | Total number of detection categories                         |
+| offset_vf_scales          | tm_uoffset_t | Scale parameter                                              |
 
  
 
 #### Gemm
 
-| 参数   | 数据类型 | 说明              |
-| ------ | -------- | ----------------- |
-| alpha  | float32  | 生成矩阵A         |
-| beta   | float32  | 生成矩阵B         |
-| transA | int32    | 矩阵A是否转置变换 |
-| transB | int32    | 矩阵B是否转置变换 |
+| Parameter | Data Type | Description            |
+| --------- | --------- | ---------------------- |
+| alpha     | float32   | Matrix A               |
+| beta      | float32   | Matrix B               |
+| transA    | int32     | Is matrix A transposed |
+| transB    | int32     | Is matrix B transposed |
 
  
 
 #### Generic
 
-| 参数            | 数据类型     | 说明                  |
-| --------------- | ------------ | --------------------- |
-| max_input_num   | int32        | 最大输入  Tensor 个数 |
-| max_output_num  | int32        | 最小输入  Tensor 个数 |
-| offset_s_opname | tm_uoffset_t | Operator Name 索引    |
+| Parameter       | Data Type    | Description                    |
+| --------------- | ------------ | ------------------------------ |
+| max_input_num   | int32        | Maximum number of input Tensor |
+| max_output_num  | int32        | Minimum number of input Tensor |
+| offset_s_opname | tm_uoffset_t | Operator Name index            |
 
  
 
 #### LSTM
 
-| 参数           | 数据类型 | 说明                |
-| -------------- | -------- | ------------------- |
-| forget_bias    | float32  | 未使用              |
-| clip           | float32  | 未使用              |
-| output_len     | int32    | 输出长度            |
-| sequence_len   | int32    | 序列长度            |
-| input_size     | int32    | 输入大小            |
-| hidden_size    | int32    | 隐藏层大小          |
-| cell_size      | int32    | 单元大小            |
-| has_peephole   | int32    | 是否支持  peephole  |
-| has_projection | int32    | 是否支持 projection |
-| has_clip       | int32    | 是否支持 clip       |
-| has_bias       | int32    | 是否支持 bias       |
-| has_init_state | int32    | 是否支持 init_state |
-| forget_act     | int32    | 未使用              |
-| input_act      | int32    | 未使用              |
-| output_act     | int32    | 未使用              |
-| cellin_act     | int32    | 未使用              |
-| cellout_act    | int32    | 未使用              |
-| mxnet_flag     | int32    | 未使用              |
+| Parameter      | Data Type | Description             |
+| -------------- | --------- | ----------------------- |
+| forget_bias    | float32   | Reservation parameter   |
+| clip           | float32   | Reservation parameter   |
+| output_len     | int32     | Output length           |
+| sequence_len   | int32     | Sequence length         |
+| input_size     | int32     | Enter the size          |
+| hidden_size    | int32     | Hide layer size         |
+| cell_size      | int32     | Unit size               |
+| has_peephole   | int32     | Is peephole supported   |
+| has_projection | int32     | Is projection supported |
+| has_clip       | int32     | Is clip supported       |
+| has_bias       | int32     | Is bias supported       |
+| has_init_state | int32     | Is init_state supported |
+| forget_act     | int32     | Reservation parameter   |
+| input_act      | int32     | Reservation parameter   |
+| output_act     | int32     | Reservation parameter   |
+| cellin_act     | int32     | Reservation parameter   |
+| cellout_act    | int32     | Reservation parameter   |
+| mxnet_flag     | int32     | Reservation parameter   |
 
  
 
 #### RNN
 
-| 参数           | 数据类型 | 说明                |
-| -------------- | -------- | ------------------- |
-| clip           | float32  | 裁剪值              |
-| output_len     | int32    | 输出长度            |
-| sequence_len   | int32    | 序列长度            |
-| input_size     | int32    | 输入大小            |
-| hidden_size    | int32    | 隐藏层大小          |
-| has_clip       | int32    | 是否支持  clip      |
-| has_bias       | int32    | 是否支持 bias       |
-| has_init_state | int32    | 是否支持 init state |
-| activation     | int32    | 激活层类别          |
+| Parameter      | Data Type | Description               |
+| -------------- | --------- | ------------------------- |
+| clip           | float32   | Clip value                |
+| output_len     | int32     | Output length             |
+| sequence_len   | int32     | Sequence length           |
+| input_size     | int32     | Input size                |
+| hidden_size    | int32     | Hidden size               |
+| has_clip       | int32     | Is clip supported         |
+| has_bias       | int32     | Is bias supported         |
+| has_init_state | int32     | Is init_state supported   |
+| activation     | int32     | Activation layer category |
 
  
 
 #### Squeeze
 
-| 参数  | 数据类型 | 说明    |
-| ----- | -------- | ------- |
-| dim_0 | int32    | Batch   |
-| dim_1 | int32    | Channel |
-| dim_2 | int32    | Height  |
-| dim_3 | int32    | Width   |
+| Parameter | Data Type | Description |
+| --------- | --------- | ----------- |
+| dim_0     | int32     | Batch       |
+| dim_1     | int32     | Channel     |
+| dim_2     | int32     | Height      |
+| dim_3     | int32     | Width       |
 
  
 
 #### Pad
 
-| 参数    | 数据类型 | 说明                                              |
-| ------- | -------- | ------------------------------------------------- |
-| pad_n_0 | int32    | 未使用，默认为0                                   |
-| pad_n_1 | int32    | 未使用，默认为0                                   |
-| pad_c_0 | int32    | 未使用，默认为0                                   |
-| pad_c_1 | int32    | 未使用，默认为0                                   |
-| pad_h_0 | int32    | top padding rows                                  |
-| pad_h_1 | int32    | bottom padding rows                               |
-| pad_w_0 | int32    | left padding columns                              |
-| pad_w_1 | int32    | right padding columns                             |
-| mode    | int32    | 0: CONSTANT   1: REFLECT   2: SYMMETRIC   3. EDGE |
-| value   | float32  | 当  mode 为CONSTANT时，设置的常量值               |
+| Parameter | Data Type | Description                                       |
+| --------- | --------- | ------------------------------------------------- |
+| pad_n_0   | int32     | Reservation parameter. Default is 0               |
+| pad_n_1   | int32     | Reservation parameter. Default is 0               |
+| pad_c_0   | int32     | Reservation parameter. Default is 0               |
+| pad_c_1   | int32     | Reservation parameter. Default is 0               |
+| pad_h_0   | int32     | Top padding rows                                  |
+| pad_h_1   | int32     | Bottom padding rows                               |
+| pad_w_0   | int32     | Left padding columns                              |
+| pad_w_1   | int32     | Right padding columns                             |
+| mode      | int32     | 0: CONSTANT   1: REFLECT   2: SYMMETRIC   3. EDGE |
+| value     | float32   | Set the CONSTANT value of when mode is constant   |
 
 #### StridedSlice
 
-| 参数     | 数据类型 | 说明               |
-| -------- | -------- | ------------------ |
-| begine_n | int32    | Batch 起始索引     |
-| end_n    | int32    | Batch 结束索引     |
-| stride_n | int32    | Batch Slice 步进   |
-| begine_c | int32    | Channel 起始索引   |
-| end_c    | int32    | Channel 结束索引   |
-| stride_c | int32    | Channel Slice 步进 |
-| begine_h | int32    | Height 起始索引    |
-| end_h    | int32    | Height 结束索引    |
-| stride_h | int32    | Height Slice 步进  |
-| begine_w | int32    | Width 起始索引     |
-| end_w    | int32    | Width 结束索引     |
-| stride_w | int32    | Width Slice 步进   |
+| Parameter | Data Type | Description         |
+| --------- | --------- | ------------------- |
+| begine_n  | int32     | Batch start index   |
+| end_n     | int32     | Batch end index     |
+| stride_n  | int32     | Batch Slice step    |
+| begine_c  | int32     | Channel start index |
+| end_c     | int32     | Channel end index   |
+| stride_c  | int32     | Channel Slice step  |
+| begine_h  | int32     | Height start index  |
+| end_h     | int32     | Height end index    |
+| stride_h  | int32     | Height Slice step   |
+| begine_w  | int32     | Width start index   |
+| end_w     | int32     | Width end index     |
+| stride_w  | int32     | Width Slice step    |
 
  
 
 #### ArgMax
 
-| 参数 | 数据类型 | 说明             |
-| ---- | -------- | ---------------- |
-| axis | int32    | 操作轴,默认值为0 |
+| Parameter | Data Type | Description                            |
+| --------- | --------- | -------------------------------------- |
+| axis      | int32     | Operation axis, the default value is 0 |
 
  
 
 #### ArgMin
 
-| 参数 | 数据类型 | 说明             |
-| ---- | -------- | ---------------- |
-| axis | int32    | 操作轴,默认值为0 |
+| Parameter | Data Type | Description                            |
+| --------- | --------- | -------------------------------------- |
+| axis      | int32     | Operation axis, the default value is 0 |
 
  
 
 #### TopKV2
 
-| 参数   | 数据类型 | 说明                           |
-| ------ | -------- | ------------------------------ |
-| k      | int32    | top 的个数                     |
-| Sorted | int32    | true: 降序排列 false: 升序排序 |
+| Parameter | Data Type | Description                                    |
+| --------- | --------- | ---------------------------------------------- |
+| k         | int32     | The first k numbers                            |
+| Sorted    | int32     | True: descending sort;  False: ascending order |
 
  
 
 #### Reduction
 
-| 参数    | 数据类型 | 说明           |
-| ------- | -------- | -------------- |
-| dim_0   | int32    | Batch          |
-| dim_1   | int32    | Channel        |
-| dim_2   | int32    | Height         |
-| dim_3   | int32    | Width          |
-| type    | int32    | 类别           |
-| keepdim | int32    | 指定  dim 不变 |
+| Parameter | Data Type | Description                        |
+| --------- | --------- | ---------------------------------- |
+| dim_0     | int32     | Batch                              |
+| dim_1     | int32     | Channel                            |
+| dim_2     | int32     | Height                             |
+| dim_3     | int32     | Width                              |
+| type      | int32     | Catalog                            |
+| keepdim   | int32     | Specifies that dim does not change |
 
 #### GRU
 
-| 参数               | 数据类型 | 说明                    |
-| ------------------ | -------- | ----------------------- |
-| clip               | float32  | Clip 值                 |
-| output_len         | int32    | 输出长度                |
-| sequence_len       | int32    | 序列长度                |
-| input_size         | int32    | 输入大小                |
-| hidden_size        | int32    | 隐藏层大小              |
-| has_clip           | int32    | 是否支持 clip           |
-| has_gate_bias      | int32    | 是否支持 gate_bias      |
-| has_candidate_bias | int32    | 是否支持 candidate_bias |
-| has_init_state     | int32    | 是否支持 init_state     |
-| mxnet_flag         | int32    | 未使用                  |
+| Parameter          | Data Type | Description                |
+| ------------------ | --------- | -------------------------- |
+| clip               | float32   | Clip value                 |
+| output_len         | int32     | Output length              |
+| sequence_len       | int32     | Sequence length            |
+| input_size         | int32     | Input length               |
+| hidden_size        | int32     | Hidden length              |
+| has_clip           | int32     | Is clip supported          |
+| has_gate_bias      | int32     | Is bias supported          |
+| has_candidate_bias | int32     | Is andidate_bias supported |
+| has_init_state     | int32     | Is init_state supported    |
+| mxnet_flag         | int32     | Reservation parameter      |
 
  
 
 #### Addn
 
-| 参数 | 数据类型 | 说明             |
-| ---- | -------- | ---------------- |
-| axis | int32    | 操作轴,默认值为0 |
+| Parameter | Data Type | Description                            |
+| --------- | --------- | -------------------------------------- |
+| axis      | int32     | Operation axis, the default value is 0 |
 
  
 
 #### SwapAxis
 
-| 参数  | 数据类型 | 说明        |
-| ----- | -------- | ----------- |
-| dim_0 | int32    | 待交换的轴0 |
-| dim_1 | int32    | 待交换的轴1 |
+| Parameter | Data Type | Description          |
+| --------- | --------- | -------------------- |
+| dim_0     | int32     | Axis 0 to be swapped |
+| dim_1     | int32     | Axis 1 to be swapped |
 
  
 
 #### Upsample
 
-| 参数  | 数据类型 | 说明     |
-| ----- | -------- | -------- |
-| scale | int32    | 采样因子 |
+| Parameter | Data Type | Description    |
+| --------- | --------- | -------------- |
+| scale     | int32     | Scaling factor |
 
  
 
 #### SpaceToBatchND
 
-| 参数       | 数据类型 | 说明                  |
-| ---------- | -------- | --------------------- |
-| dilation_x | int32    | Width 膨胀值          |
-| dilation_y | int32    | Height 膨胀值         |
-| pad_top    | int32    | top padding rows      |
-| pad_bottom | int32    | bottom padding rows   |
-| pad_left   | int32    | left padding columns  |
-| pad_right  | int32    | right padding columns |
+| Parameter  | Data Type | Description            |
+| ---------- | --------- | ---------------------- |
+| dilation_x | int32     | Width  expansion value |
+| dilation_y | int32     | Height expansion value |
+| pad_top    | int32     | Top padding rows       |
+| pad_bottom | int32     | Bottom padding rows    |
+| pad_left   | int32     | Left padding columns   |
+| pad_right  | int32     | Right padding columns  |
 
  
 
 #### BatchToSpaceND
 
-| 参数        | 数据类型 | 说明               |
-| ----------- | -------- | ------------------ |
-| dilation_x  | int32    | Width 膨胀值       |
-| dilation_y  | int32    | Height 膨胀值      |
-| crop_top    | int32    | top crop rows      |
-| crop_bottom | int32    | bottom crop rows   |
-| crop_left   | int32    | left crop columns  |
-| crop_right  | int32    | right crop columns |
+| Parameter   | Data Type | Description            |
+| ----------- | --------- | ---------------------- |
+| dilation_x  | int32     | Width expansion value  |
+| dilation_y  | int32     | Height expansion value |
+| crop_top    | int32     | Top crop rows          |
+| crop_bottom | int32     | Bottom crop rows       |
+| crop_left   | int32     | Left crop columns      |
+| crop_right  | int32     | Right crop columns     |
 
  
 
 #### Resize
 
-| 参数    | 数据类型 | 说明                             |
-| ------- | -------- | -------------------------------- |
-| scale_x | float32  | 水平方向变换因子                 |
-| scale_y | float32  | 垂直方向变换因子                 |
-| type    | int32    | 0: NEAREST_NEIGHBOR   1: BILIEAR |
+| Parameter | Data Type | Description                                |
+| --------- | --------- | ------------------------------------------ |
+| scale_x   | float32   | Horizontal direction transformation factor |
+| scale_y   | float32   | Vertical direction transformation factor   |
+| type      | int32     | 0: NEAREST_NEIGHBOR   1: BILIEAR           |
 
 #### ShuffleChannel
 
-| 参数  | 数据类型 | 说明     |
-| ----- | -------- | -------- |
-| group | int32    | group 值 |
+| Parameter | Data Type | Description  |
+| --------- | --------- | ------------ |
+| group     | int32     | group number |
 
  
 
 #### Crop
 
-| 参数        | 数据类型 | 说明                                               |
-| ----------- | -------- | -------------------------------------------------- |
-| num_args    | int32    | 参数数目                                           |
-| offset_c    | int32    | C 维度方向offset                                   |
-| offset_h    | int32    | 垂直方向上方offset                                 |
-| offset_w    | int32    | 垂直方向左方offset                                 |
-| crop_h      | int32    | 输出垂直方向大小                                   |
-| crop_w      | int32    | 输出水平方向大小                                   |
-| center_crop | bool     | True: 中心crop False: 按照offset crop，默认为false |
-| axis        | int32    | 操作轴，默认值为1，用于Caffe 框架                  |
-| flag        | int32    | 未使用                                             |
+| Parameter   | Data Type | Description                                                  |
+| ----------- | --------- | ------------------------------------------------------------ |
+| num_args    | int32     | Number of parameters                                         |
+| offset_c    | int32     | C dimension direction offset                                 |
+| offset_h    | int32     | H dimension direction offset                                 |
+| offset_w    | int32     | W dimension direction offset                                 |
+| crop_h      | int32     | Output vertical size                                         |
+| crop_w      | int32     | Output horizontal size                                       |
+| center_crop | bool      | Center_crop or not; 0 : Not                                  |
+| axis        | int32     | Operation axis, the default value is 1, which is used for Caffe framework |
+| flag        | int32     | Reservation parameter                                        |
 
  
 
 #### ROIAlign
 
-| 参数          | 数据类型 | 说明                 |
-| ------------- | -------- | -------------------- |
-| pooled_width  | int32    | 池化后的输出宽度     |
-| pooled_height | int32    | 池化后的输出高度     |
-| spatial_scale | int32    | 乘法性质空间标尺因子 |
+| Parameter     | Data Type | Description                           |
+| ------------- | --------- | ------------------------------------- |
+| pooled_width  | int32     | Output width after pooling            |
+| pooled_height | int32     | Output height after pooling           |
+| spatial_scale | int32     | Scale factor of normal property space |
 
  
 
 #### Psroipooling
 
-| 参数          | 数据类型 | 说明                 |
-| ------------- | -------- | -------------------- |
-| pooled_w      | int32    | 池化后的输出宽度     |
-| pooled_h      | int32    | 池化后的输出高度     |
-| spatial_scale | float32  | 乘法性质空间标尺因子 |
-| output_dim    | int32    | 输出  dims 大小      |
+| Parameter     | Data Type | Description                                   |
+| ------------- | --------- | --------------------------------------------- |
+| pooled_w      | int32     | Output width after pooling                    |
+| pooled_h      | int32     | Output height after pooling                   |
+| spatial_scale | float32   | Scale factor of multiplicative property space |
+| output_dim    | int32     | Output dims size                              |
 
  
 
 #### Unary
 
-| 参数 | 数据类型 | 说明                                                         |
-| ---- | -------- | ------------------------------------------------------------ |
-| type | int32    | 0: UNARY_ABS  1: UNARY_NEG  2: UNARY_FLOOR  3: UNARY_CEIL  4: UNARY_SQUARE  5: UNARY_SQRT  6: UNARY_RSQRT  7: UNARY_EXP  8: UNARY_LOG  9: UNARY_SIN  10: UNARY_COS  11: UNARY_TAN  12: UNARY_ASIN  13: UNARY_ACOS  14: UNARY_ATAN  15: UNARY_RECIPROCAL  16: UNARY_TANH |
+| Parameter | Data Type | Description                                                  |
+| --------- | --------- | ------------------------------------------------------------ |
+| type      | int32     | 0: UNARY_ABS  1: UNARY_NEG  2: UNARY_FLOOR  3: UNARY_CEIL  4: UNARY_SQUARE  5: UNARY_SQRT  6: UNARY_RSQRT  7: UNARY_EXP  8: UNARY_LOG  9: UNARY_SIN  10: UNARY_COS  11: UNARY_TAN  12: UNARY_ASIN  13: UNARY_ACOS  14: UNARY_ATAN  15: UNARY_RECIPROCAL  16: UNARY_TANH |
 
  
 
 #### Expanddims
 
-| 参数 | 数据类型 | 说明   |
-| ---- | -------- | ------ |
-| axis | int32    | 操作轴 |
+| Parameter | Data Type | Description     |
+| --------- | --------- | --------------- |
+| axis      | int32     | Operating shaft |
 
  
 
 #### Bias
 
-| 参数      | 数据类型 | 说明          |
-| --------- | -------- | ------------- |
-| bias_size | int32    | Bias 参数个数 |
+| Parameter | Data Type | Description               |
+| --------- | --------- | ------------------------- |
+| bias_size | int32     | Number of Bias parameters |
 
  
 
 #### Threshold
 
-| 参数      | 数据类型 | 说明 |
-| --------- | -------- | ---- |
-| Threshold | float32  | 阈值 |
+| Parameter | Data Type | Description     |
+| --------- | --------- | --------------- |
+| Threshold | float32   | Threshold value |
 
  
 
 #### Hardsigmoid
 
-| 参数  | 数据类型 | 说明       |
-| ----- | -------- | ---------- |
-| alpha | float32  | alpha 因子 |
-| beta  | float32  | 偏移参数   |
+| Parameter | Data Type | Description      |
+| --------- | --------- | ---------------- |
+| alpha     | float32   | Alpha factor     |
+| beta      | float32   | Offset parameter |
 
  
 
 #### Embed
 
-| 参数             | 数据类型 | 说明                                  |
-| ---------------- | -------- | ------------------------------------- |
-| num_output       | int32    | 输出元素个数                          |
-| input_dim        | int32    | 输入数据长度                          |
-| bias_term        | int32    | 1 : 表示有bias                        |
-| weight_data_size | int32    | Weight 数据长度 必须小于等于input_dim |
+| Parameter        | Data Type | Description                                                  |
+| ---------------- | --------- | ------------------------------------------------------------ |
+| num_output       | int32     | Number of output elements                                    |
+| input_dim        | int32     | input length                                                 |
+| bias_term        | int32     | bias or not; 0 : Not                                         |
+| weight_data_size | int32     | The Weight data length must be less than or equal to input_dim |
 
 #### InstanceNorm
 
-| 参数 | 数据类型 | 说明   |
-| ---- | -------- | ------ |
-| eps  | float32  | Eps 值 |
+| Parameter | Data Type | Description |
+| --------- | --------- | ----------- |
+| eps       | float32   | Eps value   |
 
  
 
 #### MVN
 
-| 参数               | 数据类型 | 说明                              |
-| ------------------ | -------- | --------------------------------- |
-| across_channels    | int32    | 1：跨channel                      |
-| normalize_variance | int32    | 0：求和方式    1：求方差方式      |
-| eps                | float32  | normalize_variance = 1,用到的因子 |
+| Parameter          | Data Type | Description                            |
+| ------------------ | --------- | -------------------------------------- |
+| across_channels    | int32     | 1：Cross channel                       |
+| normalize_variance | int32     | 0: summation method 1: variance method |
+| eps                | float32   | normalize_variance = 1                 |
 
  
 
 #### Cast
 
-| 参数      | 数据类型 | 说明                                           |
-| --------- | -------- | ---------------------------------------------- |
-| type_from | int32    | 0为int32 1: float32 2: float16 3:int8 4: uint8 |
-| type_to   | int32    | 0为int32 1: float32 2: float16 3:int8 4: uint8 |
+| Parameter | Data Type | Description                                   |
+| --------- | --------- | --------------------------------------------- |
+| type_from | int32     | 0:int32 1: float32 2: float16 3:int8 4: uint8 |
+| type_to   | int32     | 0:int32 1: float32 2: float16 3:int8 4: uint8 |
 
  
 
 #### HardSwish
 
-| 参数  | 数据类型 | 说明              |
-| ----- | -------- | ----------------- |
-| alpha | float32  | 乘法因子 默认为1  |
-| beta  | float32  | 移位参数，默认为3 |
+| Parameter | Data Type | Description                             |
+| --------- | --------- | --------------------------------------- |
+| alpha     | float32   | The multiplication factor defaults to 1 |
+| beta      | float32   | Shift parameter, the default is 3       |
 
  
 
 #### Interp
 
-| 参数          | 数据类型 | 说明              |
-| ------------- | -------- | ----------------- |
-| resize_type   | int32    | 类型，未使用      |
-| width_scale   | float32  | Width 缩放因子    |
-| height_scale  | float32  | Height 缩放因子   |
-| output_width  | int32    | 输出  Width 大小  |
-| output_height | int32    | 输出  Height 大小 |
+| Parameter     | Data Type | Description           |
+| ------------- | --------- | --------------------- |
+| resize_type   | int32     | Reservation parameter |
+| width_scale   | float32   | Width scaling factor  |
+| height_scale  | float32   | Height scaling factor |
+| output_width  | int32     | Output size of width  |
+| output_height | int32     | Output size of height |
 
  
 
 #### SELU
 
-| 参数   | 数据类型 | 说明                        |
-| ------ | -------- | --------------------------- |
-| alpha  | float32  | SeLU 激活函数中的  α 的值   |
-| lambda | float32  | 表示SeLU激活函数中的 λ 的值 |
+| Parameter | Data Type | Description                                               |
+| --------- | --------- | --------------------------------------------------------- |
+| alpha     | float32   | SeLU activates the value of α in the function             |
+| lambda    | float32   | Represents the value of λ in the SeLU activation function |
 
  
 
 #### ELU
 
-| 参数  | 数据类型 | 说明                |
-| ----- | -------- | ------------------- |
-| alpha | float32  | alpha 因子，默认为1 |
+| Parameter | Data Type | Description                    |
+| --------- | --------- | ------------------------------ |
+| alpha     | float32   | Alpha factor, the default is 1 |
 
 #### Logical
 
-| 参数 | 数据类型 | 说明         |
-| ---- | -------- | ------------ |
-| type | int32    | 逻辑处理类型 |
+| Parameter | Data Type | Description             |
+| --------- | --------- | ----------------------- |
+| type      | int32     | Logical processing type |
 
  
 
 #### Gather
 
-| 参数        | 数据类型 | 说明          |
-| ----------- | -------- | ------------- |
-| axis        | int32    | 操作轴        |
-| indices_num | int32    | Index  的个数 |
+| Parameter   | Data Type | Description     |
+| ----------- | --------- | --------------- |
+| axis        | int32     | Operating shaft |
+| indices_num | int32     | Number of Index |
 
  
 
 #### Transpose
 
-| 参数 | 数据类型 | 说明               |
-| ---- | -------- | ------------------ |
-| dim0 | int32    | Transpose 之前的轴 |
-| dim1 | int32    | Transpose 之前的轴 |
-| dim2 | int32    | Transpose 之前的轴 |
-| dim3 | int32    | Transpose 之前的轴 |
+| Parameter | Data Type | Description           |
+| --------- | --------- | --------------------- |
+| dim0      | int32     | Axis before Transpose |
+| dim1      | int32     | Axis before Transpose |
+| dim2      | int32     | Axis before Transpose |
+| dim3      | int32     | Axis before Transpose |
 
  
 
 #### Comparison
 
-| 参数 | 数据类型 | 说明         |
-| ---- | -------- | ------------ |
-| type | int32    | 比较操作类型 |
+| Parameter | Data Type | Description             |
+| --------- | --------- | ----------------------- |
+| type      | int32     | Compare operation types |
 
  
 
 #### SpaceToDepth
 
-| 参数       | 数据类型 | 说明                                  |
-| ---------- | -------- | ------------------------------------- |
-| block_size | int32    | 水平方向&&垂直方向移动到 C 方向的倍数 |
+| Parameter  | Data Type | Description                                                  |
+| ---------- | --------- | ------------------------------------------------------------ |
+| block_size | int32     | Horizontal direction & & vertical direction moves to the multiple of C direction |
 
  
 
 #### DepthToSpace
 
-| 参数       | 数据类型 | 说明                                 |
-| ---------- | -------- | ------------------------------------ |
-| block_size | int32    | C 方向移动到水平方向&&垂直方向的倍数 |
+| Parameter  | Data Type | Description                                                  |
+| ---------- | --------- | ------------------------------------------------------------ |
+| block_size | int32     | C direction moves to horizontal direction & & multiple of vertical direction |
 
  
 
 #### SparseToDense
 
-| 参数               | 数据类型 | 说明              |
-| ------------------ | -------- | ----------------- |
-| output_shape_size0 | int32    | 输出  Height 大小 |
-| output_shape_size1 | int32    | 输出  Width 大小  |
-| default_value      | int32    | 默认  Value       |
+| Parameter          | Data Type | Description           |
+| ------------------ | --------- | --------------------- |
+| output_shape_size0 | int32     | Output size of height |
+| output_shape_size1 | int32     | Output size of width  |
+| default_value      | int32     | Default  Value        |
 
  
 
 #### Clip
 
-| 参数 | 数据类型 | 说明           |
-| ---- | -------- | -------------- |
-| max  | float    | 截断操作最大值 |
-| min  | float    | 截断操作最小值 |
+| Parameter | Data Type | Description                           |
+| --------- | --------- | ------------------------------------- |
+| max       | float     | Maximum value of truncation operation |
+| min       | float     | Minimum value of truncation operation |
 
  
 
 #### Unsqueeze
 
-| 参数             | 数据类型     | 说明             |
-| ---------------- | ------------ | ---------------- |
-| offset_vi_axises | tm_uoffset_t | 操作轴偏移量数组 |
+| Parameter        | Data Type    | Description                 |
+| ---------------- | ------------ | --------------------------- |
+| offset_vi_axises | tm_uoffset_t | Operation axis offset array |
 
  
 
 #### ReduceL2
 
-| 参数    | 数据类型 | 说明           |
-| ------- | -------- | -------------- |
-| axis    | int32    | 操作轴         |
-| keepdim | int32    | 保留的维度大小 |
+| Parameter | Data Type | Description             |
+| --------- | --------- | ----------------------- |
+| axis      | int32     | Operating shaft         |
+| keepdim   | int32     | Retained dimension size |
 
  
 
 #### Expand
 
-| 参数           | 数据类型     | 说明         |
-| -------------- | ------------ | ------------ |
-| offset_v_shape | tm_uoffset_t | 输出维度数组 |
+| Parameter      | Data Type    | Description            |
+| -------------- | ------------ | ---------------------- |
+| offset_v_shape | tm_uoffset_t | Output dimension array |
 
 #### Scatter                 
 
-| 参数    | 数据类型  | 说明           |
-| ------- | --------- | -------------- |
-| axis    | int32     | 操作轴         |
-| is_onnx | tm_bool_t | 是否为ONNX算子 |
+| Parameter | Data Type | Description             |
+| --------- | --------- | ----------------------- |
+| axis      | int32     | Operating shaft         |
+| is_onnx   | tm_bool_t | Is onnx operator or not |
 
  
 
 #### Tile
 
-| 参数           | 数据类型     | 说明                      |
-| -------------- | ------------ | ------------------------- |
-| offset_vi_flag | tm_uoffset_t | caffe: 0, onnx: 1         |
-| offset_vi_reps | tm_uoffset_t | 用于  tile 补齐操作的数据 |
+| Parameter      | Data Type    | Description                             |
+| -------------- | ------------ | --------------------------------------- |
+| offset_vi_flag | tm_uoffset_t | caffe: 0, onnx: 1                       |
+| offset_vi_reps | tm_uoffset_t | Data used for tile completion operation |
 
  
