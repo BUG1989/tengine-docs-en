@@ -1,6 +1,4 @@
-# 架构设计
+# Architecting
 
-Tengine-Lite架构如下图
-
-![img](https://raw.githubusercontent.com/OAID/Tengine/tengine-lite/doc/architecture.png)
+Tengine-Lite architecture is as follows:![img](https://raw.githubusercontent.com/OAID/Tengine/tengine-lite/doc/architecture.png)
 

@@ -1,31 +1,29 @@
-# 技术亮点
+# Technical Highlights
 
-**Tengine** 由 **[OPEN AI LAB](http://www.openailab.com)** 主导开发，该项目实现了深度学习神经网络模型在嵌入式设备上的**快速**、**高效**部署需求。为实现在众多 **AIoT** 应用中的跨平台部署，本项目基于原有 Tengine 项目使用 **C 语言**进行重构，针对嵌入式设备资源有限的特点进行了深度框架裁剪。同时采用了完全分离的前后端设计，有利于 CPU、GPU、NPU 等异构计算单元的快速移植和部署，同时降低评估和迁移成本。
+**Tengine** is led by **[OPEN AI LAB](http://www.openailab.com)** .this project meets the requirements of **Fast **、**Efficient **deployment of deep learning neural network model on embedded devices. In order to realize cross-platform deployment in many **AIoT** applications, this project is reconstructed based on the original Tengine project **C Language **and the deep framework is cut according to the limited resources of embedded devices. At the same time, a completely separated front-end design is adopted, which is beneficial to the rapid transplantation and deployment of heterogeneous computing units such as CPU, GPU and NPU, and reduces the cost of evaluation and migration.
 
-## 多硬件支持
+## Multiple Hardware Support
 
-Tengine 支持多种硬件后端对神经网络模型进行加速推理，包含 CPU（ARM、X86、MIPS、RISC-V）、GPU（Mail、NV、AMD、Adreno、PowerVR）、NPU（VSI、NNIE、DLA）。
+Tengine supports a variety of hardware backend to accelerate reasoning of neural network model, including（ARM、X86、MIPS、RISC-V）、GPU（Mail、NV、AMD、Adreno、PowerVR）、NPU（VSI、NNIE、DLA）。
 
-## 高性能
+## High-performance
 
-通过提供计算图优化（算子合并、算子移除），实现对原生网络模型结构进行优化，降低计算量。
+By providing calculation graph optimization (operator combination and operator removal), the structure of the native network model is optimized and the calculation amount is reduced.
 
-同时针对不同 CPU 架构，采用精细的手工汇编，实现对计算量要求较高的 Kernel 进行极致优化，充分发挥硬件峰值算力。
+At the same time, according to different CPU architectures, fine manual compilation is adopted to realize the extreme optimization of the Kernel with high computational requirements, and give full play to the peak computing power of hardware. 
 
-## 异构切图
+## Heterogeneous Cut Graph
 
-为了支持不同 SoC 上多种计算单元，Tengine 在加载模型后，获取当前指定硬件加速特性，灵活切分原有计算图，实现算力充分利用，同时提高模型支持的泛化性。
+In order to support various computing units on different SoCs, after loading the model, Tengine obtains the acceleration characteristics of the currently specified hardware, flexibly divides the original computing diagram, makes full use of computing power, and improves the generalization of model support.
 
-## 量化支持
+## Quantitative Support
 
-支持主流的两种量化策略（对称分通道量化、非对称分层量化）实现模型低比特压缩、性能加速的目的，同时做到无缝对接主流 NPU 加速引擎。
+Support the two mainstream quantization strategies (symmetric sub-channel quantization and asymmetric layered quantization) to achieve the goals of low-bit compression and performance acceleration of the model, and at the same time seamlessly interface with mainstream NPU acceleration engine. A compensation scheme for low bit quantization accuracy is provided.
 
-提供低比特量化精度补偿方案。
+## Mixing Precision
 
-## 混合精度
+In order to give full play to the hardware computing resources and ensure the reasoning accuracy of the model, the mixed precision computing mode is supported.
 
-为了充分发挥硬件计算资源，同时保证模型推理精度，支持混合精度计算模式。
+## Lightweight Deployment
 
-## 轻量级部署
-
-最新的 Tengine 核心模块代码采用 C 语言开发，无第三方库依赖，最小可执行静态库大小 < 100KB，甚至可在主流 MCU 上进行模型部署。
+The latest Tengine core module code is developed in c language, which is independent of third-party library. the minimum executable static library size is less than 100KB, and it can even be deployed on mainstream MCU.

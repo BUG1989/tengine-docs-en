@@ -1,16 +1,16 @@
-# 源码编译环境准备
+# Preparation of Source Code Compilation Environment
 
-## 依赖工具安装
+## Dependent Tool Installation
 
-编译 Tengine Lite 依赖 `git, g++, cmake, make` 等以下基本工具，如果没有安装，
+Compiled Tengine Lite depends on the following basic tools such as `git, g++, cmake, make` . if it is not installed:
 
-- Ubuntu18.04 系统命令如下：
+- For Ubuntu18.04 ：
 
   ```bash
   sudo apt-get install cmake make g++ git
   ```
 
-- Fedora28 系统命令如下：
+- For Fedora28：
 
   ```bash
   sudo dnf install cmake make g++ git

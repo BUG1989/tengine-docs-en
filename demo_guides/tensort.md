@@ -1,20 +1,19 @@
-# Tengine 使用 TensorRT 进行部署
+# Tengine uses TensorRT for deployment
 
-## 编译
+## Compile
 
-参考 [源码编译（TensorRT）](../source_compile/compile_tensort.md) 章节生成部署所需要的以下库文件：
+Refer to the [Source Compilation (TensorRT)](../source_compile/compile_tensort.md) chapter to generate the following library files required for deployment:
 
-待补充
+To be added
 
-## 运行
+## Run
+### Model format
 
-### 模型格式
+TensorRT supports loading Float32 tmfile. If working in Float16 inference precision mode, Tengine framework will automatically convert to Float16 data online for inference after loading Float32 tmfile.
 
-TensorRT 支持加载 Float32 tmfile，如果工作在 Float16 推理精度模式下，Tengine 框架将在加载 Float32 tmfile 后自动在线转换为 Float16 数据进行推理。
+### Inference precision setting
 
-### 推理精度设置
-
-TensorRT 支持 **Float32** 、 **Float16** 、 **Int8** 三种精度模型进行网络模型推理，需要在执行 `prerun_graph_multithread(graph_t graph, struct options opt)` 之前通过 `struct options opt` 显式设置推理精度。
+TensorRT supports **Float32** 、 **Float16** 、 **Int8**  three precision model for network model inference. It is necessary to  set the inference precision explicitly through `struct options opt` before executing `prerun_graph_multithread(graph_t graph, struct options opt)`.
 
 Enable GPU FP32 mode
 
@@ -49,9 +48,9 @@ opt.precision = TENGINE_MODE_INT8;
 opt.affinity = 0;
 ```
 
-### 后端硬件绑定
+### Back-end hardware binding
 
-在加载模型前，需要显式指定 **TensorRT** 硬件后端 **context**，并在调用 `graph_t create_graph(context_t context, const char* model_format, const char* fname, ...)` 时传入该参数。
+Before loading the model, you need to specify the **TensorRT** hardware backend **context** explicitly, and pass it when calling `graph_t create_graph(context_t context, const char* model_format, const char* fname, ...)` Enter the parameter.
 
 ```
 /* create NVIDIA TensorRT backend */
@@ -62,11 +61,11 @@ add_context_device(trt_context, "TRT");
 create_graph(trt_context, "tengine", model_file);
 ```
 
-## 参考 Demo
+## Demo for reference
+ 
+Please refer to the source code [tm_classification_tensorrt.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_tensorrt.c)
 
-源码请参考 [tm_classification_tensorrt.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_tensorrt.c)
-
-### 执行结果
+### The Result of execution
 
 ```
 nvidia@xaiver:~/tengine-lite-tq/build-linux-trt$ ./tm_classification_trt -m mobilenet_v1.tmfile -i cat.jpg -g 224,224 -s 0.017,0.017,0.017 -w 104.007,116.669,122.679 -r 10

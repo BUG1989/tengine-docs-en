@@ -1,8 +1,8 @@
-# 支持硬件
+# Support Hardware 
 
 ## ARM CPU
 
-Tengine 已完成对下列 ARM Cortex-A 系列处理器支持：
+Tengine has completed support for the following ARM Cortex-A series processors:
 
 ### 32bit
 - Cortex-A5
@@ -25,13 +25,13 @@ Tengine 已完成对下列 ARM Cortex-A 系列处理器支持：
 
 ## 端侧 GPU
 
-通过 ACL 已验证 ARM Mali-GPU 以下系列：
+The following ARM Mali-GPU series have been verified by ACL :
 
 - T860
 - G31
 - G52
 
-通过 CUDA/TensorRT 已验证 NVIDIA 以下系列：
+The following NVIDIA series have been verified by CUDA/TensorRT：
 
 - Jetson NANO
 - Jetson TX1
@@ -39,17 +39,17 @@ Tengine 已完成对下列 ARM Cortex-A 系列处理器支持：
 - Jetson XAVIER NX
 - Jetson XAVIER AGX
 
-通过 OpenCL 已验证以下型号：
+The following models have been verified through OpenCL：
 
-- 待补充
+- To be supplemented
 
-通过 Vulkan 已验证以下型号：
+The following models have been verified through Vulkan：
 
-- 待补充
+- To be supplemented
 
-## 服务器 GPU
+## GPU Server 
 
-通过 CUDA/TensorRT 已验证 NVIDIA 以下系列：
+The following NVIDIA series have been verified by CUDA/TensorRT：
 
 - QUADRO RTX 8000
 - GeForce RTX 3090
@@ -57,7 +57,7 @@ Tengine 已完成对下列 ARM Cortex-A 系列处理器支持：
 
 ## NPU
 
-通过 TIM-VX 已验证内置 VeriSilicon VIP8000/VIP9000 NPU 的以下芯片：
+The following  VeriSilicon VIP8000/VIP9000 NPU series have been verified by TIM-VX ：
 
 - A311D
 - S905D3

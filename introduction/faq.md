@@ -1,11 +1,11 @@
 # Tengine FAQ
 
-## 一般信息
+## General Information
 
-## 编译
+## Compile
 
-## 模型转换
+## Model Convert
 
-## 模型量化
+## Model Quantification
 
-## 报错分析
+## Error Analysis

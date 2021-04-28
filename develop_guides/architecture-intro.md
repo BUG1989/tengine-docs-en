@@ -1,7 +1,7 @@
-# 架构详解
+# Architectural details
 
-## 设计基本原则
+## Basic Principles of Design
 
-## 重要模块介绍
+## Introduction to important modules
 
-## 扩展硬件后端
+## Extend the hardware backend

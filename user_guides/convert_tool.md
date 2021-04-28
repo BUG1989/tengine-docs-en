@@ -1,6 +1,6 @@
-# 模型转换工具
+# Model Convert Tool
 
-Tengine Convert Tool 支持将多种训练框架模型转换成 Tengine 推理框架适配的模型格式 tmfile。最新版本已支持以下框架模型：
+Tengine Convert Tool supports the conversion of various training framework models into tmfile, a model format adapted by teengine reasoning framework. The latest version has supported the following framework models：
 - Caffe
 - MXNet
 - PyTorch(ONNX)
@@ -11,25 +11,25 @@ Tengine Convert Tool 支持将多种训练框架模型转换成 Tengine 推理�
 - OneFlow
 - PaddlePalle 2.0
 
-同时 Tengine Convert Tool 还支持将其他优秀的端侧框架模型转换成 Tengine 推理框架适配的模型格式 tmfile。最新版本已支持以下框架模型：
+At the same time, teengine converttool also supports converting other excellent end-side framework models into tmfile, a model format adapted by teengine reasoning framework. The latest version has supported the following framework models：
 
 - ncnn
 
-## 依赖库安装
+## Dependent Library Installation
 
 ```shell
 sudo apt install libprotobuf-dev protobuf-compiler
 ```
 
-## 源码编译
+## Source Code Compilation
 ```shell
 mkdir build && cd build
 cmake ..
 make -j`nproc` && make install
 ```
-编译完成后，生成的可行性文件 `tm_convert_tool` 存放在 `./build/install/bin/` 目录下。
+After the compilation is completed, the feasibility file `tm_convert_tool` is generated. Stored in  `./build/install/bin/` directory。
 
-## 执行模型转换
+## Execute Model Convert
 
 - 命令解析
 ```shell

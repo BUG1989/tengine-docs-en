@@ -2,9 +2,9 @@
 
 ## Initial
 
-实现 Tengine 框架基础资源初始化、释放功能、版本号查询的功能。
+It implements the functions of Tengine framework basic resource initialization, release function, and version number query. 
 
-示例：
+Example:
 
 ```c++
 /* inital tengine */
@@ -44,7 +44,7 @@ Return：
 
 ## Graph
 
-实现 Tengine 计算图创建、释放、参数获取等功能。
+It implements the functions of Tengine calculation graph creation, release, and parameter acquisition.
 
 ```c++
 /* set runtime options */
@@ -245,7 +245,7 @@ Return：
 
 ## Node
 
-Node 节点相关操作。
+Operations related to Node
 
 ### `node_t create_graph_node(graph_t graph, const char* node_name, const char* op_name)`
 
@@ -274,7 +274,7 @@ Return：
 
 ## Tensor
 
-Tensor 数据相关操作。
+Operations related to tensor data.
 
 ```c++
 /* set the shape, data buffer of input_tensor of the graph */
@@ -358,7 +358,7 @@ Return：
 
 ## Exection context
 
-设置执行会话模块相关操作，主要用于显示设置各种异构计算的硬件后端。
+Set and execute the related operations of the session module, which is mainly used to display and set the hardware backend of various heterogeneous computing.
 
 ```c++
 /* create VeriSilicon TIM-VX backend */
@@ -403,7 +403,7 @@ Params：
 
 ## Misc
 
-其他辅助 API
+Other auxiliary API.
 
 ```
 /* set the level of log with INFO */
@@ -431,9 +431,9 @@ Params：
 
 ## Plugin
 
-## 宏定义
+## Macro definition
 
-## 结构体
+## Structure
 
-## 自定义算子
+## Custom operator
 

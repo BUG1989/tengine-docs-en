@@ -1,16 +1,16 @@
-# 源码编译（Linux）
+# Source Code Compilation（Linux）
 
-## 本地编译
+## Local Compilation
 
-### 下载 Tengine Lite 源码
+### Download Tengine Lite Source Code
 
-下载 Tengine Lite 源码，位于 Tengine 的分支 tengine-lite 上：
+Download Tengine Lite source code，which is located on the branch of Tengine-lite：
 
 ```bash
 git clone -b tengine-lite https://github.com/OAID/Tengine.git  Tengine-Lite
 ```
 
-### 编译 Tengine Lite
+### Compile Tengine Lite
 
 ```bash
 cd Tengine-Lite
@@ -21,7 +21,7 @@ make
 make install
 ```
 
-编译完成后 build/install/lib 目录会生成 `libtengine-lite.so` 文件，如下所示：
+After compilation, the build/install/lib directory will generate `libtengine-lite.so` as shown below:
 
 ```bash
 install
@@ -35,31 +35,31 @@ install
     └── libtengine-lite.so
 ```
 
-## 交叉编译 Arm32/64 Linux 版本
+## Cross-compiling Arm32/64 Linux
 
-### 下载源码
+### Download Source Code
 
 ```bash
 git clone -b tengine-lite https://github.com/OAID/Tengine.git  Tengine-Lite
 ```
 
-### 安装交叉编译工具链
+### Install the Cross-compilation Tool Chain
 
-Arm64 Linux 交叉编译工具链为：
+For Arm64 Linux：
 
 ```bash
 sudo apt install g++-aarch64-linux-gnu
 ```
 
-Arm32 Linux 交叉编译工具链为：
+For Arm32 Linux：
 
 ```bash
 sudo apt install g++-arm-linux-gnueabihf
 ```
 
-### 编译 Tengine Lite
+### Complie Tengine Lite
 
-Arm64 Linux 交叉编译
+Arm64 Linux Cross Compilation
 
 ```bash
 cd Tengine-Lite
@@ -70,7 +70,7 @@ make
 make install
 ```
 
-Arm32 Linux 交叉编译
+Arm32 Linux Cross Compilation
 
 ```bash
 cd Tengine-Lite
@@ -81,4 +81,5 @@ make
 make install
 ```
 
-编译完成后会生成 `libtengine-lite.so` 文件，并且会把相关的头文件、`libtengine-lite.so` 文件和相关的测试程序复制到 `build/install` 目录中。
+After compilation,  `libtengine-lite.so` file will be generated. Related header files、`libtengine-lite.so`  and related test programs will be copied to `build/install` directory.
+

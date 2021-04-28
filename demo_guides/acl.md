@@ -1,8 +1,8 @@
-# Tengine 使用 ACL 进行部署
+# Tengine uses ACL for deployment
 
-## 编译
+## Compile
 
-参考 [源码编译（ACL）](../source_compile/compile_acl.md) 章节生成部署所需要的以下库文件：
+Refer to [Source Compile（ACL）](../source_compile/compile_acl.md)chapter to generate the following library files required for deployment:
 
 ```
 3rdparty/acl/lib/
@@ -14,15 +14,15 @@ build-acl-arm64/install/lib/
 └── libtengine-lite.so
 ```
 
-## 运行
+## Run
 
-### 模型格式
+### Model format
 
-ACL 支持直接加载 Float32 tmfile，如果工作在 Float16 推理精度模式下，Tengine 框架将在加载 Float32 tmfile 后自动在线转换为 Float16 数据进行推理。
+ACL supports direct loading of Float32 tmfile. If working in Float16 inference precision mode, Tengine framework will automatically convert to Float16 data for inference online after loading Float32 tmfile.
 
-### 推理精度设置
+### Inference precision setting
 
-ACL 支持 **Float32** 和 **Float16** 两种精度模型进行网络模型推理，需要在执行 `prerun_graph_multithread(graph_t graph, struct options opt)` 之前通过 `struct options opt` 显式设置推理精度。
+CUDA supports **Float32** and **Float16** two precision model for network model inference. It is necessary to  set the inference precision explicitly through `struct options opt` before executing `prerun_graph_multithread(graph_t graph, struct options opt)`.
 
 Enable GPU FP32 mode
 
@@ -46,9 +46,9 @@ opt.precision = TENGINE_MODE_FP16;
 opt.affinity = 0;
 ```
 
-### 后端硬件绑定
+### Back-end hardware binding
 
-在加载模型前，需要显式指定 **ACL** 硬件后端 **context**，并在调用 `graph_t create_graph(context_t context, const char* model_format, const char* fname, ...)` 时传入该参数。
+Before loading the model, you need to explicitly specify the **ACL** hardware backend **context**, and pass it when calling `graph_t create_graph(context_t context, const char* model_format, const char* fname, ...)` Enter the parameter.
 
 ```c++
 /* create arm acl backend */
@@ -59,11 +59,11 @@ add_context_device(acl_context, "ACL");
 create_graph(acl_context, "tengine", model_file);
 ```
 
-## 参考 Demo
+## Demo for reference
 
-源码请参考 [tm_classification_acl.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_acl.c)
+Please refer to the source code [tm_classification_acl.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_acl.c)
 
-### 执行结果
+### The result of execution
 
 ```bash
 [root@localhost tengine-lite]# ./tm_mssd_acl -m mssd.tmfile -i ssd_dog.jpg -t 1 -r 10

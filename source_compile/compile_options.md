@@ -1,36 +1,36 @@
-# 编译选项说明
+# Compilation Option Description
 
-## 基础选项
+## Basic Options
 
-| 编译选项                  | 说明                               | 默认值 |
-| ------------------------- | ---------------------------------- | ------ |
-| TENGINE_ENABLE_ALL_SYMBOL | 编译时是否打开所有符号             | ON     |
-| TENGINE_OPENMP            | 编译时启用 OpenMP 并行单元         | ON     |
-| TENGINE_BUILD_BENCHMARK   | 编译性能测试模块                   | ON     |
-| TENGINE_BUILD_EXAMPLES    | 编译 Example 模块                  | ON     |
-| TENGINE_BUILD_TESTS       | 编译单元测试模块                   | OFF    |
-| TENGINE_COVERAGE          | 编译时启用代码覆盖率测试功能       | OFF    |
-| TENGINE_BUILD_CPP_API     | 编译时启用 C++ API                 | OFF    |
-| TENGINE_DEBUG_DATA        | 编译时启用调试选项，数据提取       | OFF    |
-| TENGINE_DEBUG_TIME        | 编译时启用调试选项，单层耗时分析   | OFF    |
-| TENGINE_DEBUG_MEM_STAT    | 编译时启用调试选项，内存状态分析   | OFF    |
-| TENGINE_ARCH_ARM_82       | 编译时启用 ARM 架构的 armv8.2 指令 | OFF    |
+| Compilation Options       | Description                                                  | Default |
+| ------------------------- | ------------------------------------------------------------ | ------- |
+| TENGINE_ENABLE_ALL_SYMBOL | Open all symbols at compile time                             | ON      |
+| TENGINE_OPENMP            | Enable OpenMP parallel units at compile time                 | ON      |
+| TENGINE_BUILD_BENCHMARK   | Compile performance test module                              | ON      |
+| TENGINE_BUILD_EXAMPLES    | Compile the Example module                                   | ON      |
+| TENGINE_BUILD_TESTS       | Compile unit test module                                     | OFF     |
+| TENGINE_COVERAGE          | Enable code coverage testing at compile time                 | OFF     |
+| TENGINE_BUILD_CPP_API     | Enable C++ API at compile time                               | OFF     |
+| TENGINE_DEBUG_DATA        | Enable debugging options at compile time, and extract data   | OFF     |
+| TENGINE_DEBUG_TIME        | Enable debugging option at compile time, single-layer time-consuming analysis | OFF     |
+| TENGINE_DEBUG_MEM_STAT    | Enable debugging options at compile time, and analyze memory status | OFF     |
+| TENGINE_ARCH_ARM_82       | Enable ARMv8.2 instructions of arm architecture at compile time | OFF     |
 
-## HCL 选项
+## HCL Options
 
-| 编译选项                         | 说明                      | 默认值 |
-| -------------------------------- | ------------------------- | ------ |
-| TENGINE_STANDALONE_HCL           | 编译时单独生成 HCL 库     | OFF    |
-| TENGINE_STANDALONE_HCL_AUTO_LOAD | 编译时指定 HCL 库自动加载 | ON     |
+| Compilation Options              | Description                                                  | Default |
+| -------------------------------- | ------------------------------------------------------------ | ------- |
+| TENGINE_STANDALONE_HCL           | Generate HCL library separately at compile time              | OFF     |
+| TENGINE_STANDALONE_HCL_AUTO_LOAD | Specifies that the HCL library is automatically loaded at compile time | ON      |
 
-## 插件选项
+## Plugin Options
 
-| 编译选项                   | 说明               | 默认值 |
-| -------------------------- | ------------------ | ------ |
-| TENGINE_ENABLE_ACL         | 编译 ACL 插件      | OFF    |
-| TENGINE_ENABLE_VULKAN      | 编译 Vulkan插件    | OFF    |
-| TENGINE_ENABLE_TENSORRT    | 编译 TensorRT 插件 | OFF    |
-| TENGINE_ENABLE_CUDABACKEND | 编译 CUDA 插件     | OFF    |
-| TENGINE_ENABLE_OPENCL      | 编译 OpenCL 插件   | OFF    |
-| TENGINE_ENABLE_TIM_VX      | 编译 TIM-VX 插件   | OFF    |
-| TENGINE_ENABLE_NNIE        | 编译 NNIE 插件     | OFF    |
+| Compilation Options        | Description              | Default |
+| -------------------------- | ------------------------ | ------- |
+| TENGINE_ENABLE_ACL         | Compile ACL plugin       | OFF     |
+| TENGINE_ENABLE_VULKAN      | Compile Vulkan plugin    | OFF     |
+| TENGINE_ENABLE_TENSORRT    | Compile TensorRT  plugin | OFF     |
+| TENGINE_ENABLE_CUDABACKEND | Compile CUDA  plugin     | OFF     |
+| TENGINE_ENABLE_OPENCL      | Compile OpenCL  plugin   | OFF     |
+| TENGINE_ENABLE_TIM_VX      | Compile TIM-VX  plugin   | OFF     |
+| TENGINE_ENABLE_NNIE        | Compile NNIE  plugin     | OFF     |

@@ -1,15 +1,15 @@
 # Performance data
 
-数据略有滞后，以实测为准。
+The data has a slight lag, and the actual measurement shall prevail.
 
-## ARM 测试环境
+## ARM test environment
 
-### ARM 测试数据
+### ARM test environment
 
-## GPU 测试环境
+## GPU test environment
 
-### GPU 测试数据
+### GPU test environment
 
-## NPU 测试环境
+## NPU test environment
 
-### NPU 测试数据
+### NPU test environment

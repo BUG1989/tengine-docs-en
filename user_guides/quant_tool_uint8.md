@@ -1,7 +1,7 @@
-# 模型量化-非对称量化
-为了支持在 AIoT 设备上部署 int8 模型，我们提供了一些通用的 post training quantization 工具，可以将 Float32 tmfile 模型转换为 int8 tmfile 模型。
+# Model Quantization-Asymmetric Quantization
+To support the deployment of Uint8 model on AIoT equipment, we provide some general post training quantization tools, which can transform Float32 tmfile model into Uint8 tmfile model.
 
-## 非对称分层量化
+## Asymmetric Layered Quantization
 
 | Type                  | Note                                                         |
 | --------------------- | ------------------------------------------------------------ |
@@ -12,22 +12,22 @@
 | Example               | [**tm_classification_uint8.c**](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_uint8.c) |
 | Execution environment | Ubuntu 18.04                                                 |
 
-## 适配硬件
+## Adapting Hardware
 
 - CPU Uint8 mode
 - TIM-VX NPU（such as A311D、i.MX8M Plus、RK1126？）
 
-## 下载
+## Download
 
-当前我们提供预编译好的可执行文件, 您可以从这里获取 [quant_tool_uint8](https://github.com/OAID/Tengine/releases/download/lite-v1.3/quant_tool_uint8).
+At present, we provide precompiled executable files, which can be obtained from here [quant_tool_uint8](https://github.com/OAID/Tengine/releases/download/lite-v1.3/quant_tool_uint8).
 
-## 安装依赖库
+## Install Dependent Libraries
 
 ```
 sudo apt install libopencv-dev
 ```
 
-## 运行参数
+## Operational Parameter
 
 ```bash
 $ ./quant_tool_uint8 -h
@@ -46,12 +46,12 @@ $ ./quant_tool_uint8 -h
 -t    num thread      count of processing threads(default is 4)
 ```
 
-## 示例
+## Example
 
-使用量化工具前, **你需要 Float32 tmfile 和 Calibration Dataset（量化校准数据集）**。
+Before using the quantization tool, **you need Float32 tmfile and Calibration Dataset**。
 
-- 校准数据内容，尽可能的覆盖该模型的所有应用场景，一般我们的经验是从训练集中随机抽取；
-- 校准数据张数，根据经验我们建议使用 500-1000 张。
+- Calibrate the data content and cover all the application scenarios of the model as much as possible. Generally, our experience is randomly selected from the training set；
+- The number of calibration data sheets is 500-1000 according to experience.
 
 ```bash
 $ .quant_tool_uint8  -m ./mobilenet_fp32.tmfile -i ./dataset -o ./mobilenet_uint8.tmfile -g 3,224,224 -w 104.007,116.669,122.679 -s 0.017,0.017,0.017

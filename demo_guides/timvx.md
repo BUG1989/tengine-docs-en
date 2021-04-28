@@ -1,9 +1,8 @@
-# Tengine 使用 TIM-VX 进行部署
+# Tengine uses TIM-VX for deployment
 
-## 编译
+## Compile
 
-参考 [源码编译（TIM-VX）](../source_compile/compile_timvx.md) 章节，编译生成或从第三方获取部署所需要的以下库文件：
-
+Refer to the [Source Compilation (TIM-VX)](../source_compile/compile_timvx.md) chapter to compile and generate or obtain the following library files required for deployment from a third party:
 ```
 3rdparty/tim-vx/lib/
 ├── libArchModelSw.so
@@ -18,25 +17,25 @@ build-tim-vx-arm64/install/lib/
 └── libtengine-lite.so
 ```
 
-- 在 Khadas VIM3 上运行时，需要使用上诉动态库替代板上 `/lib` 目录下的已有库文件；
-- 需要使用 TIM-VX 提供的 A311D 预编译包中的 `galcore.ko` ( /prebuild-sdk-a311d/lib/galcore.ko)内核驱动文件进行更新。
+- When running on Khadas VIM3, you need to use the appeal dynamic library to replace the existing library files in the `/lib` directory on the board;
+- It Need to use the `galcore.ko` (/prebuild-sdk-a311d/lib/galcore.ko) kernel driver file in the A311D pre-compiled package provided by TIM-VX to update.
 
-## 运行
+## Run
 
-### 模型格式
+### Model format
 
-TIM-VX 后端只支持加载 Uint8 tmfile，因此需要使用**模型量化工具**将 Float32 tmfile 量化成 Uint8 tmfile。
+TIM-VX backend only supports loading Uint8 tmfile, so you need to use **model quantization tool** to quantize Float32 tmfile into Uint8 tmfile.
 
-### 模型量化
+### Model quantification
 
-Float32 量化成 Uint8 tmfile 具体实现步骤及相关工具获取请参考以下链接：
+Float32 is quantified into Uint8 tmfile. For specific implementation steps and related tools, please refer to the following link:
 
-- [模型量化-非对称量化](../user_guides/quant_tool_uint8.md)
-- [Uint8 量化工具下载地址](https://github.com/OAID/Tengine/releases/download/lite-v1.3/quant_tool_uint8)
+- [Model Quantization-Asymmetric Quantization](../user_guides/quant_tool_uint8.md)
+- [Uint8 quantization tool download address](https://github.com/OAID/Tengine/releases/download/lite-v1.3/quant_tool_uint8)
 
-### 推理精度设置
+### Reasoning accuracy setting
 
-TIM-VX 只支持 **Uint8** 精度模型进行网络模型推理，需要在执行 `prerun_graph_multithread(graph_t graph, struct options opt)` 之前通过 `struct options opt` 显式设置推理精度。
+TIM-VX supports **Uint8** a precision model for network model inference. It is necessary to  set the inference precision explicitly through `struct options opt` before executing `prerun_graph_multithread(graph_t graph, struct options opt)`.
 
 Enable Uint8 mode
 
@@ -49,9 +48,9 @@ opt.precision = TENGINE_MODE_UINT8;
 opt.affinity = 0;
 ```
 
-### 后端硬件绑定
+### Back-end hardware binding
 
-在加载模型前，需要显式指定 **TIM-VX** 硬件后端 **context**，并在调用 `graph_t create_graph(context_t context, const char* model_format, const char* fname, ...)` 时传入该参数。
+Before loading the model, you need to specify the **TIM-VX** hardware backend **context** explicitly, and pass it when calling `graph_t create_graph(context_t context, const char* model_format, const char* fname, ...)` Enter the parameter.
 
 ```
 /* create VeriSilicon TIM-VX backend */
@@ -62,14 +61,13 @@ add_context_device(timvx_context, "TIMVX");
 create_graph(timvx_context, "tengine", model_file);
 ```
 
-## 参考 Demo
+## Demo for reference
 
-源码请参考 [tm_classification_timvx.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_timvx.c)
+Please refer to the source code [tm_classification_timvx.c](https://github.com/OAID/Tengine/blob/tengine-lite/examples/tm_classification_timvx.c)
 
-### 执行结果
+### The Results of execution
 
-运行硬件为 Khadas VIM3，内置 5Tops 算力 AI 加速器。
-
+The running hardware is Khadas VIM3, with a built-in 5Tops computing power AI accelerator.
 ```
 [khadas@Khadas tengine-lite]# ./tm_classification_timvx -m squeezenet_uint8.tmfile -i cat.jpg -r 1 -s 0.017,0.017,0.017 -r 10
 Tengine plugin allocator TIMVX is registered.
@@ -91,16 +89,16 @@ Repeat 10 times, thread 1, avg time 2.95 ms, max_time 3.42 ms, min_time 2.76 ms
 30.780502, 282
 ```
 
-## 常见异常及解决方案
+## FAQ
 
-待补充...
+Todo...
 
-## 支持硬件列表
+## The List of Supported hardware
 
-| 芯片厂家  | 设备      |
+| Chip manufacturer  | Device      |
 | -------- | --------- |
 | Amlogic | A311D        |
 | NXP     | iMX 8M Plus |
 | X86-64  | Simulator    |
 
-## 支持算子列表
+## The List of supported operators
