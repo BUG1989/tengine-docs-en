@@ -30,7 +30,7 @@ Tengine model is a suffix ".tmfile" file, which is converted by Tengine-Covert-T
 
  
 
-## Model Properties+
+## Model Properties
 
 After entering the Netron interface, click the icon in the upper left corner or click the gray node (as shown by the red mark in Figure 1) to pop up the right sidebar: Model Properties.
 
