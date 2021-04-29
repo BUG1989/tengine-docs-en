@@ -1,4 +1,4 @@
-Tengine Lite with VeriSilicon TIM-VX User Manual
+# Tengine Lite with VeriSilicon TIM-VX User Manual
 
 ## 1. Brief
 
@@ -179,8 +179,9 @@ Repeat 10 times, thread 1, avg time 2.95 ms, max_time 3.42 ms, min_time 2.76 ms
 ```
 
 ### 4. Support list
-| Vendor  | Devices      |
-| ------- | ------------ |
+
+| Vendor  | Device      |
+| -------- | --------- |
 | Amlogic | A311D        |
 | NXP     | i.MX 8M Plus |
 | X86-64  | Simulator    |

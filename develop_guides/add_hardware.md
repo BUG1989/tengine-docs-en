@@ -30,7 +30,7 @@ The above interfaces usually do not need to be filled in. **Tengine Lite** provi
 
 ## Add a custom device step by step
 ### Create a directory and write a CMakeLists file
-First, create a folder named after the user's device in `source/device`. The folder can be the user's device abbreviation or a name that other users think is cool (here assuming the name is `TPU`, then the directory is `source/device` /tpu`), and copy a `CMakeLists.txt` file from other implemented `device/xxx` directories to the current folder; now you only need to make slight modifications to this `CMakeLists.txt`, no need Created from scratch. Let's take a copy from `source/device/acl/CMakeLists.txt` as an example. The complete example of the file is as follows:
+First, create a folder named after the user's device in `source/device`. The folder can be the user's device abbreviation or a name that other users think is cool (here assuming the name is `TPU`, then the directory is `source/devicetpu`), and copy a `CMakeLists.txt` file from other implemented `device/xxx` directories to the current folder; now you only need to make slight modifications to this ` CMakeLists.txt`, no need Created from scratch. Let's take a copy from `source/device/acl/CMakeLists.txt` as an example. The complete example of the file is as follows:
 ``` cmake
 # 0. clear var
 UNSET (_DEV_ACL_HEADER_PATH)
@@ -99,7 +99,7 @@ SET (TENGINE_ACL_LINK_LIBRARIES    ${_DEV_ACL_LINK_LIBRARIES}     CACHE INTERNAL
 INSTALL (FILES ${_ACL_ROOT}/acl_define.h DESTINATION include/tengine RENAME acl_device.h)
 
 ```
-First, you need to modify the prefix of the used `CMake` variables to avoid potential variable conflicts; replace all `ACL` with `TPU`; then modify the search root path of the module `_TPU_ROOT` to `source/device/tpu` `.
+First, you need to modify the prefix of the used `CMake` variables to avoid potential variable conflicts; replace all `ACL` with `TPU`; then modify the search root path of the module `_TPU_ROOT` to `source/device/tpu` .
 ``` cmake
 # 1.  set source root path
 SET(_TPU_ROOT ${CMAKE_SOURCE_DIR}/source/device/tpu)
