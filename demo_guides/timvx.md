@@ -98,7 +98,7 @@ Todo...
 | Vendor  | Device      |
 | -------- | --------- |
 | Amlogic | A311D        |
-| NXP     | iMX 8M Plus |
+| NXP     | i.MX 8M Plus |
 | X86-64  | Simulator    |
 
 ## The List of supported operators
