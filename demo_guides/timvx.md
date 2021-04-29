@@ -95,7 +95,7 @@ Todo...
 
 ## The List of Supported hardware
 
-| Chip manufacturer  | Device      |
+| Vendor  | Device      |
 | -------- | --------- |
 | Amlogic | A311D        |
 | NXP     | iMX 8M Plus |
