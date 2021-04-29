@@ -31,7 +31,7 @@ After the compilation is completed, the feasibility file `tm_convert_tool` is ge
 
 ## Execute Model Convert
 
-- 命令解析
+- Command parsing
 ```shell
 $ ./tm_convert_tool -h
 [Convert Tools Info]: optional arguments:
