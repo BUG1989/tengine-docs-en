@@ -1,4 +1,4 @@
-# Source Code Compilation（Android）
+# Source Code Compilation (Android)
 
 ## Install Android NDK
 

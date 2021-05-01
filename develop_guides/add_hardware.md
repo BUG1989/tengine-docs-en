@@ -114,7 +114,7 @@ LIST (APPEND _DEV_TPU_HEADER_PATH      ${CMAKE_SOURCE_DIR}/3rdparty/tpu/include)
 # 3.  add linking lib searching path
 LIST (APPEND _DEV_TPU_LINK_PATH        ${CMAKE_SOURCE_DIR}/3rdparty/tpu/lib)
 ```
-源码搜集部分按实际情况修改即可。
+Source code collection part according to the actual situation can be modified.
 ``` cmake
 # 4.  add source files
 AUX_SOURCE_DIRECTORY("${_TPU_ROOT}"    _TPU_BASE_SOURCE)
@@ -272,7 +272,7 @@ In the `tpu_optimizer` structure, `tpu_split_graph()` is used to implement graph
 
 Finally, you need to write the registration function and the de-registration function `int register_tpu_device()` and `int unregister_tpu_device()`. It should be noted that the second half of the registration function and the de-registration function is the file name, which needs to match the actual file name. CMake The link of the calling process of the registered function will be automatically completed.
 
-## to sum up
+## Summary
 From the above description, we can know that the core work of adding a custom device is to fill the `ir_device_t` structure. After the description is completed, all the work of device registration is completed. The modular `device` makes **Tengine Lite** very easy to expand and has enough flexibility.
 
 ## Surprise

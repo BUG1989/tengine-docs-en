@@ -34,11 +34,7 @@ Welcome to Tengine's documentation!
   :name: sec-quick-start
 
   quick_start/tutorial
-  quick_start/release_lib
   quick_start/c_demo
-  quick_start/cpp_demo
-  quick_start/python_demo
-  quick_start/ptq_demo
 
 .. toctree::
   :maxdepth: 1
@@ -63,7 +59,6 @@ Welcome to Tengine's documentation!
   demo_guides/acl
   demo_guides/tensort
   demo_guides/cuda
-  demo_guides/nnie
 
 .. toctree::
   :maxdepth: 1
@@ -73,6 +68,7 @@ Welcome to Tengine's documentation!
   source_compile/compile_env
   source_compile/compile_options
   source_compile/compile_linux
+  source_compile/compile_vs
   source_compile/compile_android  
   source_compile/compile_acl
   source_compile/compile_cuda
@@ -85,15 +81,12 @@ Welcome to Tengine's documentation!
   :caption: API Reference
 
   api_reference/c_api_doc
-  api_reference/cxx_api_doc
-  api_reference/python_api_doc
 
 .. toctree::
   :maxdepth: 1
   :caption: Develop Guides
 
   develop_guides/architecture-intro
-  develop_guides/add_operation
   develop_guides/add_hardware
 
 .. toctree::
@@ -102,9 +95,3 @@ Welcome to Tengine's documentation!
   :name: sec-roadmap
 
   introduction/roadmap
-
-.. toctree::
-  :maxdepth: 1
-  :caption: FAQ
-
-  introduction/faq

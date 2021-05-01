@@ -89,16 +89,13 @@ Repeat 10 times, thread 1, avg time 2.95 ms, max_time 3.42 ms, min_time 2.76 ms
 30.780502, 282
 ```
 
-## FAQ
-
-Todo...
-
 ## The List of Supported hardware
 
 | Vendor  | Device      |
 | -------- | --------- |
-| Amlogic | A311D        |
-| NXP     | i.MX 8M Plus |
+| Amlogic | A311D, S905D3        |
+| NXP     | iMX 8M Plus |
+| JLQ     | JA310 |
 | X86-64  | Simulator    |
 
 ## The List of supported operators
