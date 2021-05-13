@@ -2,16 +2,29 @@
 
 Tengine has finished supporting mainstream computer vision models, including classification, detection, recognition, segmentation, key points and other functions.
 
-| Catalog | Model          | Support Platform         |
-| ------- | -------------- | ------------------------ |
-| classification    | MobileNet V1   | ARM、X86、MIPS、GPU、NPU |
-| detection    | MobileNet-SSD  | ARM、X86、MIPS、GPU、NPU |
-| recognition    | MobileFaceNets | ARM、X86、GPU            |
-| recognition    | YOLOv3         | ARM、X86、GPU            |
-| recognition    | YOLOv3-Tiny    | ARM、X86、GPU            |
-| recognition    | YOLOv4         | ARM、X86、GPU            |
-| recognition    | YOLOv4-Tiny    | ARM、X86、GPU            |
-| segmentation    | YOLCAT         | ARM                      |
+- The supported CPU architecture：ARM、X86、MIPS、RISC-V ；
+- The supported GPU architecture：NVIDIA valta TensorCore、Adreno、Mali  ；
+- The supported NPU architecture：NPU ；
+
+| Catalog 	    | Model          | Support Platform         |
+| ----------------- | -------------- | ------------------------ |
+| classification    | MobileNet V1   | CPU、GPU、NPU 		|
+| detection    	    | MobileNet-SSD  | CPU、GPU、NPU 		|
+| recognition       | MobileFaceNets | CPU、GPU            	|
+| detection         | YOLOv3         | CPU、GPU、NPU            	|
+| detection         | YOLOv3-Tiny    | CPU、GPU、NPU            	|
+| detection         | YOLOv4         | CPU、GPU、NPU            	|
+| detection         | YOLOv4-Tiny    | CPU、GPU、NPU            	|
+| detection         | YOLOv5         | CPU、GPU、NPU            	|
+| detection         | YOLOv5s        | CPU、GPU、NPU            	|
+| detection         | YOLOvfastest   | CPU、GPU、NPU            	|
+| faceDetection     | retinaface     | CPU、GPU、NPU            	|
+| faceDetection	    | ultraface	     | CPU、GPU			|
+| segmentation      | YOLCAT         | CPU、GPU                	|
+| keypoint   	    | Landmark       | CPU、GPU            	|
+| keypoint          | Alphapose      | CPU、GPU                	|
+| keypoint          | Openpose       | CPU、GPU                	|
+| OCR    	    | crnn_lite_dense | CPU、GPU 	        |
 
 **Tips**：
 
