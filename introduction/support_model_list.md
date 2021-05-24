@@ -28,6 +28,11 @@ Tengine has finished supporting mainstream computer vision models, including cla
 
 **Tips**：
 
-- The model link comes from Tengine Model ZOO, and we will continue to update it;
+- The model link comes from Tengine Model Zoo, and we will continue to update it;
 - Among the NPUs in the list of supported platforms, some models are implemented by heterogeneous computing, namely CPU+NPU.
 
+**Model Zoo**
+
+- [BaiduNetDisk](https://pan.baidu.com/s/1JsitkY6FVV87Kao6h5yAmg) （提取码：7ke5）
+
+- [Google Drive](https://drive.google.com/drive/folders/1hunePCa0x_R-Txv7kWqgx02uTCH3QWdS?usp=sharing)
