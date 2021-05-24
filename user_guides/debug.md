@@ -138,5 +138,5 @@ The Naive Profiler is used to turn off the CPU performance operator, and the bac
 
 ### Method
 
-- Add the environment variable ` exporttg _ debug _ ref = 1` before the program is executed, and enable the Naive Profiler function；
-- Delete the environment variable ` unset TG_DEBUG_REF ` and turn off the precision Naive Profiler function.
+- Add the environment variable `export TG_DEBUG_REF=1` before the program is executed, and enable the Naive Profiler function；
+- Delete the environment variable `unset TG_DEBUG_REF` and turn off the precision Naive Profiler function.

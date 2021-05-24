@@ -1,4 +1,4 @@
-# Source Code Compilation（TensorRT）
+# Source Code Compilation (TensorRT)
 
 ## Brief
 

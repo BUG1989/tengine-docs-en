@@ -1,4 +1,4 @@
-# Source Code Compilation（ACL）
+# Source Code Compilation (ACL)
 
 ## Brief
 

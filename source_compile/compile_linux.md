@@ -1,4 +1,4 @@
-# Source Code Compilation（Linux）
+# Source Code Compilation (Linux)
 
 ## Local Compilation
 

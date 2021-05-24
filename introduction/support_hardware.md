@@ -23,7 +23,7 @@ Tengine has completed support for the following ARM Cortex-A series processors:
 - Cortex-A75
 - Cortex-A76
 
-## 端侧 GPU
+## GPU Edge
 
 The following ARM Mali-GPU series have been verified by ACL :
 
