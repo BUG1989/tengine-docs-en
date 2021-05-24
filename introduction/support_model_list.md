@@ -33,6 +33,6 @@ Tengine has finished supporting mainstream computer vision models, including cla
 
 **Model Zoo**
 
-- [BaiduNetDisk](https://pan.baidu.com/s/1JsitkY6FVV87Kao6h5yAmg) （password：7ke5）
+- [Baidu Netdisk](https://pan.baidu.com/s/1JsitkY6FVV87Kao6h5yAmg) (password: 7ke5)
 
 - [Google Drive](https://drive.google.com/drive/folders/1hunePCa0x_R-Txv7kWqgx02uTCH3QWdS?usp=sharing)
