@@ -1,6 +1,6 @@
 # Technical Highlights
 
-**Tengine** is led by **[OPEN AI LAB](http://www.openailab.com)** .this project meets the requirements of **Fast **、**Efficient **deployment of deep learning neural network model on embedded devices. In order to realize cross-platform deployment in many **AIoT** applications, this project is reconstructed based on the original Tengine project **C Language **and the deep framework is cut according to the limited resources of embedded devices. At the same time, a completely separated front-end design is adopted, which is beneficial to the rapid transplantation and deployment of heterogeneous computing units such as CPU, GPU and NPU, and reduces the cost of evaluation and migration.
+**Tengine** is led by **[OPEN AI LAB](http://www.openailab.com)** .this project meets the requirements of **Fast**、**Efficient** deployment of deep learning neural network model on embedded devices. In order to realize cross-platform deployment in many **AIoT** applications, this project is reconstructed based on the original Tengine project **C Language** and the deep framework is cut according to the limited resources of embedded devices. At the same time, a completely separated front-end design is adopted, which is beneficial to the rapid transplantation and deployment of heterogeneous computing units such as CPU, GPU and NPU, and reduces the cost of evaluation and migration.
 
 ## Multiple Hardware Support
 
